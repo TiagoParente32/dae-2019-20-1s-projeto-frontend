@@ -1,0 +1,73 @@
+<template>
+  <form @submit.prevent="create">
+    <h1>Create Pagamento</h1>
+    <div>
+      id:
+      <input v-model="id" type="text" />
+    </div>
+    <div>
+      username:
+      <input v-model="username" type="text" />
+    </div>
+    <div>
+      produtoID:
+      <input v-model="produtoID" type="number" />
+    </div>
+    <div>
+      quantidade:
+      <input v-model="quantidade" type="number" />
+    </div>
+    <div>
+      precoFinal:
+      <input v-model="precoFinal" type="number" step="0.01" />
+    </div>
+    <div>
+      estado:
+      <input v-model="estado" type="text" />
+    </div>
+    <div>
+      dataLancamento:
+      <input v-model="dataLancamento" type="text" />
+    </div>
+
+    <nuxt-link to="/pagamentos">Return</nuxt-link>
+    <button type="reset">RESET</button>
+    <button @click.prevent="create">CREATE</button>
+  </form>
+</template>
+<script>
+export default {
+  data() {
+    return {
+      id: null,
+      username: null,
+      produtoID: null,
+      quantidade: null,
+      precoFinal: null,
+      estado: null,
+      dataLancamento: null
+    };
+  },
+  methods: {
+    create() {
+      this.$axios
+        .$post("/api/pagamentos", {
+          id: this.id,
+          username: this.username,
+          produtoID: this.produtoID,
+          quantidade: this.quantidade,
+          precoFinal: this.precoFinal,
+          estado: this.estado,
+          dataLancamento: this.dataLancamento
+        })
+        .then(() => {
+          this.$router.push("/pagamentos");
+        })
+        .catch(function(error) {
+          // handle error
+          console.log(error);
+        });
+    }
+  }
+};
+</script>
