@@ -36,11 +36,11 @@ export default {
         headers: { "Content-Type": "application/json" }
       })
         .then(response => {
-          console.log("Deleted Modalidade " + id + " successfully!");
+          this.$toast.success("Deleted Modalidade " + id + " successfully!");
           this.getModalidades();
         })
         .catch(function(error) {
-          console.log(error);
+          this.$toast.error(error);
         });
     },
     getModalidades() {

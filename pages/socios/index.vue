@@ -37,11 +37,11 @@ export default {
         headers: { "Content-Type": "application/json" }
       })
         .then(response => {
-          console.log("Deleted Socio " + username + " successfully!");
+          this.$toast.success("Deleted Socio " + username + " successfully!");
           this.getSocios();
         })
         .catch(function(error) {
-          console.log(error);
+          this.$toast.error(error);
         });
     },
     getSocios() {

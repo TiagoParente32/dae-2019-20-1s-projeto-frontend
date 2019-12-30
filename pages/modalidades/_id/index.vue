@@ -1,18 +1,20 @@
 <template>
   <b-container>
-    <h4>Modalidade Details</h4>
+    <h1>Modalidade Details</h1>
     <p>Id: {{ modalidade.id }}</p>
     <p>Nome: {{ modalidade.nome }}</p>
 
-    <h4>Horarios</h4>
+    <nuxt-link :to="`${this.id}/edit`" class="btn btn link btn-primary">Edit</nuxt-link>
+
+    <h1>Horarios</h1>
     <b-table v-if="horarios.length" striped over :items="horarios" :fields="horariosFields"></b-table>
     <p v-else>No uploaded horarios.</p>
 
-    <h4>Atletas</h4>
+    <h1>Atletas</h1>
     <b-table v-if="atletas.length" striped over :items="atletas" :fields="userFields"></b-table>
     <p v-else>No uploaded atletas.</p>
 
-    <h4>Treinadores</h4>
+    <h1>Treinadores</h1>
     <b-table v-if="treinadores.length" striped over :items="treinadores" :fields="userFields"></b-table>
     <p v-else>No uploaded treinadores.</p>
   </b-container>

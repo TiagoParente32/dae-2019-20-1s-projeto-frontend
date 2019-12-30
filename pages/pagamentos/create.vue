@@ -21,10 +21,7 @@
       precoFinal:
       <input v-model="precoFinal" type="number" step="0.01" />
     </div>
-    <!-- <div>
-      estado:
-      <input v-model="estado" type="text" />
-    </div>-->
+
     <div>
       estado:
       <select id="type" name="type" v-model="estado">
@@ -34,10 +31,6 @@
           v-bind:value="option.value"
         >{{ option.text }}</option>
       </select>
-    </div>
-    <div>
-      dataLancamento:
-      <input v-model="dataLancamento" type="text" />
     </div>
 
     <nuxt-link to="/pagamentos">Return</nuxt-link>
@@ -55,7 +48,6 @@ export default {
       quantidade: null,
       precoFinal: null,
       estado: null,
-      dataLancamento: null,
       optionsEstado: [
         { text: "Pago", value: "PAGO" },
         { text: "Não Pago", value: "NAO_PAGO" },
@@ -72,8 +64,7 @@ export default {
           produtoID: this.produtoID,
           quantidade: this.quantidade,
           precoFinal: this.precoFinal,
-          estado: this.estado,
-          dataLancamento: this.dataLancamento
+          estado: this.estado
         })
         .then(() => {
           this.$router.push("/pagamentos");

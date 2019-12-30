@@ -36,11 +36,12 @@ export default {
         headers: { "Content-Type": "application/json" }
       })
         .then(response => {
-          console.log("Deleted Atleta " + username + " successfully!");
+          this.$toast.success("Deleted Atleta " + username + " successfully!");
           this.getAtletas();
         })
         .catch(function(error) {
-          console.log(error);
+          this.$toast.success(error);
+          //console.log(error);
         });
     },
     getAtletas() {
