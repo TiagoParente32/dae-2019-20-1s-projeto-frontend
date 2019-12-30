@@ -21,9 +21,19 @@
       precoFinal:
       <input v-model="precoFinal" type="number" step="0.01" />
     </div>
-    <div>
+    <!-- <div>
       estado:
       <input v-model="estado" type="text" />
+    </div>-->
+    <div>
+      estado:
+      <select id="type" name="type" v-model="estado">
+        <option
+          v-for="option in optionsEstado"
+          :key="option.value"
+          v-bind:value="option.value"
+        >{{ option.text }}</option>
+      </select>
     </div>
     <div>
       dataLancamento:
@@ -45,7 +55,12 @@ export default {
       quantidade: null,
       precoFinal: null,
       estado: null,
-      dataLancamento: null
+      dataLancamento: null,
+      optionsEstado: [
+        { text: "Pago", value: "PAGO" },
+        { text: "Não Pago", value: "NAO_PAGO" },
+        { text: "Parcial", value: "PARCIAL" }
+      ]
     };
   },
   methods: {

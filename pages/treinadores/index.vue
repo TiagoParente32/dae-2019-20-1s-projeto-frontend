@@ -4,7 +4,16 @@
     <!-- easy components usage, already shipped with bootstrap css-->
     <b-container>
       <!-- try to remove :fields=”fields” to see the magic -->
-      <b-table striped over :items="treinadores" :fields="fields" />
+      <b-table striped over :items="treinadores" :fields="fields">
+        <template v-slot:cell(actions)="row">
+          <nuxt-link class="btn btn-link" :to="`/treinadores/${row.item.username}`">Details</nuxt-link>
+          <button
+            type="button"
+            class="btn btn-danger btn-sm"
+            @click.prevent="deleteTreinador(row.item.username)"
+          >Delete</button>
+        </template>
+      </b-table>
     </b-container>&emsp;
     <nuxt-link to="/treinadores/create" class="btn btn link btn-primary">Create a Treinador</nuxt-link>
   </div>
@@ -15,20 +24,40 @@ import StartPage from "../index";
 export default {
   data() {
     return {
-      fields: ["username", "name", "email"],
+      fields: ["username", "name", "email", "actions"],
       treinadores: []
     };
   },
-  created() {
-    this.$axios
-      .$get("/api/treinadores")
-      .then(treinadores => {
-        this.treinadores = treinadores;
+  methods: {
+    deleteTreinador(username) {
+      this.$axios({
+        method: "delete",
+        url: `/api/treinadores/${username}`,
+        data: null,
+        headers: { "Content-Type": "application/json" }
       })
-      .catch(function(error) {
-        // handle error
-        console.log(error);
-      });
+        .then(response => {
+          console.log("Deleted Administrator " + username + " successfully!");
+          this.getTreinadores();
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    },
+    getTreinadores() {
+      this.$axios
+        .$get("/api/treinadores")
+        .then(treinadores => {
+          this.treinadores = treinadores;
+        })
+        .catch(function(error) {
+          // handle error
+          console.log(error);
+        });
+    }
+  },
+  created() {
+    this.getTreinadores();
   },
   components: {
     "startup-page": StartPage
