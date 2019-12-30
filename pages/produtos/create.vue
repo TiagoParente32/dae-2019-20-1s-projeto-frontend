@@ -7,7 +7,13 @@
     </div>
     <div>
       tipo:
-      <input v-model="tipo" type="text" />
+      <select id="type" name="type" v-model="tipo">
+        <option
+          v-for="option in optionsTipo"
+          :key="option.value"
+          v-bind:value="option.value"
+        >{{ option.text }}</option>
+      </select>
     </div>
     <div>
       valor Base:
@@ -30,7 +36,17 @@ export default {
       id: null,
       tipo: null,
       valorBase: null,
-      descricao: null
+      descricao: null,
+      optionsTipo: [
+        { text: "Artigo Desportivo", value: "ARTIGO_DESPORTIVO" },
+        { text: "Seguro", value: "SEGURO" },
+        { text: "Graduação", value: "GRADUACAO" },
+        { text: "Inscrição", value: "INSCRICAO" },
+        { text: "Quota", value: "QUOTA" },
+        { text: "Aula", value: "AULA" },
+        { text: "Estagio", value: "ESTAGIO" },
+        { text: "Outro", value: "OUTRO" }
+      ]
     };
   },
   methods: {

@@ -23,7 +23,7 @@ import StartPage from "../index";
 export default {
   data() {
     return {
-      fields: ["id", "nome", "horarios", "actions"],
+      fields: ["id", "nome", "actions"],
       modalidades: []
     };
   },
