@@ -1,15 +1,25 @@
 <template>
   <b-container>
-    <h1>Produto Details</h1>
-    <h4>Id: {{ produto.id }}</h4>
-    <label for="tipo">Tipo:</label>
-    <b-form-input id="tipo" v-model="produto.tipo" readonly></b-form-input>
+    <h1>Edit Produto</h1>
+    <label for="type">Tipo:</label>
+    <select class="form-control" id="type" name="type" v-model="produto.tipo">
+      <option
+        v-for="option in optionsTipo"
+        :key="option.value"
+        v-bind:value="option.value"
+      >{{ option.text }}</option>
+    </select>
     <label for="descricao">Descrição:</label>
-    <b-form-input id="descricao" v-model="produto.descricao" readonly></b-form-input>
+    <b-form-input id="descricao" v-model="produto.descricao"></b-form-input>
     <label for="valorBase">Valor Base:</label>
-    <b-form-input id="valorBase" v-model="produto.valorBase" readonly></b-form-input>
+    <b-form-input id="valorBase" v-model="produto.valorBase"></b-form-input>
+
     <br />
-    <nuxt-link :to="`${this.id}/edit`" class="btn btn link btn-primary">Edit</nuxt-link>
+    <button
+      type="button"
+      class="btn btn-primary btn-sm"
+      @click.prevent="updateProduto(produto.id)"
+    >Submit</button>
     <hr />
     <h1>Pagamentos</h1>
     <b-table v-if="pagamentos.length" striped over :items="pagamentos" :fields="pagamentosFields"></b-table>
@@ -41,6 +51,23 @@ export default {
         "dataLancamento"
       ]
     };
+  },
+  methods: {
+    updateProduto(id) {
+      this.$axios
+        .$put(`/api/produtos/${id}`, {
+          tipo: this.produto.tipo,
+          valorBase: this.produto.valorBase,
+          descricao: this.produto.descricao
+        })
+        .then(modalidades => {
+          this.$toast.success("Produto " + id + " updated Sucessfully");
+          this.$router.push(`/produtos/${id}`);
+        })
+        .catch(function(error) {
+          this.$toast.error(error);
+        });
+    }
   },
   computed: {
     id() {

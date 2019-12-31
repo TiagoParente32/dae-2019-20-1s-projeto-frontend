@@ -24,7 +24,7 @@ import StartPage from "../index";
 export default {
   data() {
     return {
-      fields: ["id", "descricao", "pagamentos", "tipo", "valorBase", "actions"],
+      fields: ["id", "descricao", "tipo", "valorBase", "actions"],
       produtos: []
     };
   },
@@ -37,7 +37,7 @@ export default {
         headers: { "Content-Type": "application/json" }
       })
         .then(response => {
-          this.$toast.success("Deleted Pagamento " + id + " successfully!");
+          this.$toast.success("Deleted Produto " + id + " successfully!");
           this.getProdutos();
         })
         .catch(function(error) {
