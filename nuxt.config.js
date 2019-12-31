@@ -38,10 +38,12 @@ module.exports = {
   ** Nuxt.js modules
   */
   modules: [
+    // Doc: https://bootstrap-vue.js.org
     'bootstrap-vue/nuxt',
+    // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     '@nuxtjs/toast',
-
+    '@nuxtjs/auth'
   ],
   /*
   ** Axios module configuration
@@ -58,15 +60,47 @@ module.exports = {
         '^/api/': ''
       }
     }
-  },
-  /*
+  },  /*
   ** Build configuration
   */
   build: {
     /*
     ** You can extend webpack config here
     */
-    extend(config, ctx) {
+    extend (config, ctx) {
     }
-  }
+  },
+
+  auth: {
+    redirect: {
+      login: '/auth/login',
+      logout: '/',
+      home: '/'
+    },
+    watchLoggedIn: true,
+    strategies: {
+      local: {
+        endpoints: {
+          login: {
+            url: '/api/login/token',
+            method: 'post',
+            propertyName: 'token'
+          },
+          logout: false,
+          user: {
+            url: '/api/login/claims',
+            method: 'get',
+            propertyName: ''
+          }
+        },
+        // tokenRequired: true, //--> default
+        // tokenType: 'bearer' //--> default
+      }
+    }
+  },
+  router: {
+    middleware: [
+      'auth'
+    ]
+  },
 }
