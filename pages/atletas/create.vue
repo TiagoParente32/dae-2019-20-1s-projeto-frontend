@@ -1,25 +1,21 @@
 <template>
   <form @submit.prevent="create">
     <h1>Create Atleta</h1>
-    <div>
-      username:
-      <input v-model="username" type="text" />
-    </div>
-    <div>
-      password:
-      <input v-model="password" type="password" />
-    </div>
-    <div>
-      name:
-      <input v-model="name" type="text" />
-    </div>
-    <div>
-      email:
-      <input v-model="email" type="email" />
-    </div>
-    <nuxt-link to="/atletas">Return</nuxt-link>
-    <button type="reset">RESET</button>
-    <button @click.prevent="create">CREATE</button>
+    <label for="username">Username:</label>
+    <b-form-input id="username" v-model="username"></b-form-input>
+
+    <label for="password">Password:</label>
+    <b-form-input id="password" v-model="password"></b-form-input>
+
+    <label for="name">Name:</label>
+    <b-form-input id="name" v-model="name"></b-form-input>
+
+    <label for="email">E-mail:</label>
+    <b-form-input id="email" v-model="email"></b-form-input>
+    <hr />
+    <nuxt-link to="/atleta">Return</nuxt-link>
+    <b-button class="btn-warning" type="reset">RESET</b-button>
+    <b-button class="btn-success" @click.prevent="create">CREATE</b-button>
   </form>
 </template>
 <script>

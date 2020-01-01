@@ -1,33 +1,31 @@
 <template>
-  <form @submit.prevent="create">
-    <h1>Create Produto</h1>
-    <div>
-      id:
-      <input v-model="id" type="text" />
-    </div>
-    <div>
-      tipo:
-      <select id="type" name="type" v-model="tipo">
+  <b-container>
+    <form @submit.prevent="create">
+      <h1>Create Produto</h1>
+      <label for="id">Id:</label>
+      <b-form-input id="id" v-model="id"></b-form-input>
+
+      <label for="type">Tipo:</label>
+      <select class="form-control" id="type" name="type" v-model="tipo">
         <option
           v-for="option in optionsTipo"
           :key="option.value"
           v-bind:value="option.value"
         >{{ option.text }}</option>
       </select>
-    </div>
-    <div>
-      valor Base:
-      <input v-model="valorBase" type="number" />
-    </div>
-    <div>
-      Descricao:
-      <input v-model="descricao" type="text" />
-    </div>
 
-    <nuxt-link to="/produtos">Return</nuxt-link>
-    <button type="reset">RESET</button>
-    <button @click.prevent="create">CREATE</button>
-  </form>
+      <label for="valorBase">valor Base:</label>
+      <b-form-input id="valorBase" v-model="valorBase" type="number"></b-form-input>
+
+      <label for="descricao">Descricao:</label>
+      <b-form-input id="descricao" v-model="descricao" type="text"></b-form-input>
+
+      <hr />
+      <nuxt-link to="/produtos">Return</nuxt-link>
+      <b-button class="btn-warning" type="reset">RESET</b-button>
+      <b-button class="btn-success" @click.prevent="create">CREATE</b-button>
+    </form>
+  </b-container>
 </template>
 <script>
 export default {

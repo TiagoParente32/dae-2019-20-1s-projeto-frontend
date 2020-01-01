@@ -1,14 +1,11 @@
 <template>
   <form @submit.prevent="create">
     <h1>Create Escalao</h1>
-    <div>
-      id:
-      <input v-model="id" type="text" />
-    </div>
-    <div>
-      nome:
-      <input v-model="nome" type="text" />
-    </div>
+    <label for="id">Id:</label>
+    <b-form-input id="id" v-model="id"></b-form-input>
+
+    <label for="nome">Nome:</label>
+    <b-form-input id="nome" v-model="nome"></b-form-input>
     <label for="username">Modalidade:</label>
     <select class="form-control" id="category_id" name="category" v-model="modalidadeID">
       <option
@@ -17,9 +14,10 @@
         v-bind:value="modalidade.id"
       >{{ modalidade.nome }}</option>
     </select>
+    <hr />
     <nuxt-link to="/escaloes">Return</nuxt-link>
-    <button type="reset">RESET</button>
-    <button @click.prevent="create">CREATE</button>
+    <b-button class="btn-warning" type="reset">RESET</b-button>
+    <b-button class="btn-success" @click.prevent="create">CREATE</b-button>
   </form>
 </template>
 <script>

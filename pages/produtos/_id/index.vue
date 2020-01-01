@@ -12,7 +12,12 @@
     <nuxt-link :to="`${this.id}/edit`" class="btn btn link btn-primary">Edit</nuxt-link>
     <hr />
     <h1>Pagamentos</h1>
-    <b-table v-if="pagamentos.length" striped over :items="pagamentos" :fields="pagamentosFields"></b-table>
+    <b-table v-if="pagamentos.length" striped over :items="pagamentos" :fields="pagamentosFields">
+      <template v-slot:cell(actions)="row">
+        <nuxt-link class="btn btn-link" :to="`/pagamentos/${row.item.id}`">Details</nuxt-link>
+        <nuxt-link class="btn btn-primary" :to="`/pagamentos/${row.item.id}/edit`">Edit</nuxt-link>
+      </template>
+    </b-table>
     <p v-else>No uploaded pagamentos.</p>
   </b-container>
 </template>
@@ -38,7 +43,8 @@ export default {
         "produtoID",
         "precoFinal",
         "quantidade",
-        "dataLancamento"
+        "dataLancamento",
+        "actions"
       ]
     };
   },

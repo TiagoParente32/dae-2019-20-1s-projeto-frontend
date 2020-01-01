@@ -53,6 +53,8 @@
     <h1>Atletas</h1>
     <b-table v-if="atletas.length" striped over :items="atletas" :fields="userFields">
       <template v-slot:cell(actions)="row">
+        <nuxt-link class="btn btn-link" :to="`/atletas/${row.item.username}`">Details</nuxt-link>
+        <nuxt-link class="btn btn-primary" :to="`/atletas/${row.item.username}/edit`">Edit</nuxt-link>
         <button
           type="button"
           class="btn btn-danger btn-sm"
@@ -96,6 +98,8 @@
     <h1>Treinadores</h1>
     <b-table v-if="treinadores.length" striped over :items="treinadores" :fields="userFields">
       <template v-slot:cell(actions)="row">
+        <nuxt-link class="btn btn-link" :to="`/treinadores/${row.item.username}`">Details</nuxt-link>
+        <nuxt-link class="btn btn-primary" :to="`/treinadores/${row.item.username}/edit`">Edit</nuxt-link>
         <button
           type="button"
           class="btn btn-danger btn-sm"

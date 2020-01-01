@@ -1,24 +1,21 @@
 <template>
   <b-container>
-    <h4>Administrador Details</h4>
-    <p>Username: {{ administrador.username }}</p>
-    <p>Name: {{ administrador.name }}</p>
-    <p>Email: {{ administrador.email }}</p>
+    <h1>Administrador Details</h1>
+    <label for="username">Username:</label>
+    <b-form-input id="username" v-model="administrador.username" readonly></b-form-input>
+    <label for="name">Name:</label>
+    <b-form-input id="name" v-model="administrador.name" readonly></b-form-input>
+    <label for="email">E-Mail:</label>
+    <b-form-input id="email" v-model="administrador.email" readonly></b-form-input>
+    <br />
+    <nuxt-link :to="`${this.username}/edit`" class="btn btn link btn-primary">Edit</nuxt-link>
   </b-container>
 </template>
 <script>
 export default {
   data() {
     return {
-      administrador: {},
-      subjectFields: [
-        "code",
-        "name",
-        "courseCode",
-        " courseYear",
-        "scholarYear"
-      ],
-      documentsFields: ["fileName", "actions"]
+      administrador: {}
     };
   },
   computed: {

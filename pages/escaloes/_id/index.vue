@@ -1,6 +1,6 @@
 <template>
   <b-container>
-    <h1>escalao Details</h1>
+    <h1>Escalao Details</h1>
     <p>Id: {{ escalao.id }}</p>
     <p>Nome: {{ escalao.nome }}</p>
 
@@ -11,11 +11,21 @@
     <p v-else>No uploaded horarios.</p>
     <hr />
     <h1>Atletas</h1>
-    <b-table v-if="atletas.length" striped over :items="atletas" :fields="userFields"></b-table>
+    <b-table v-if="atletas.length" striped over :items="atletas" :fields="userFields">
+      <template v-slot:cell(actions)="row">
+        <nuxt-link class="btn btn-link" :to="`/atletas/${row.item.username}`">Details</nuxt-link>
+        <nuxt-link class="btn btn-primary" :to="`/atletas/${row.item.username}/edit`">Edit</nuxt-link>
+      </template>
+    </b-table>
     <p v-else>No uploaded atletas.</p>
     <hr />
     <h1>Treinadores</h1>
-    <b-table v-if="treinadores.length" striped over :items="treinadores" :fields="userFields"></b-table>
+    <b-table v-if="treinadores.length" striped over :items="treinadores" :fields="userFields">
+      <template v-slot:cell(actions)="row">
+        <nuxt-link class="btn btn-link" :to="`/treinadores/${row.item.username}`">Details</nuxt-link>
+        <nuxt-link class="btn btn-primary" :to="`/treinadores/${row.item.username}/edit`">Edit</nuxt-link>
+      </template>
+    </b-table>
     <p v-else>No uploaded treinadores.</p>
   </b-container>
 </template>
@@ -25,7 +35,7 @@ export default {
     return {
       escalao: {},
       horariosFields: ["id", "dia", "duracao", "horaInicio"],
-      userFields: ["username", "name", "email"],
+      userFields: ["username", "name", "email", "actions"],
       escaloesFields: ["id", "nome"]
     };
   },
