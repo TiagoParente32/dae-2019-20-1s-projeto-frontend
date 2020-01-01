@@ -3,19 +3,19 @@
     <startup-page></startup-page>
     <!-- easy components usage, already shipped with bootstrap css-->
     <b-container>
-      <h1>Modalidades</h1>
-      <b-table striped over :items="modalidades" :fields="fields">
+      <h1>Escaloes</h1>
+      <b-table striped over :items="escaloes" :fields="fields">
         <template v-slot:cell(actions)="row">
-          <nuxt-link class="btn btn-link" :to="`/modalidades/${row.item.id}`">Details</nuxt-link>
-          <nuxt-link class="btn btn-primary" :to="`/modalidades/${row.item.id}/edit`">Edit</nuxt-link>
+          <nuxt-link class="btn btn-link" :to="`/escaloes/${row.item.id}`">Details</nuxt-link>
+          <nuxt-link class="btn btn-primary" :to="`/escaloes/${row.item.id}/edit`">Edit</nuxt-link>
           <button
             type="button"
             class="btn btn-danger btn-sm"
-            @click.prevent="deleteModalidade(row.item.id)"
+            @click.prevent="deleteEscalao(row.item.id)"
           >Delete</button>
         </template>
       </b-table>
-      <nuxt-link to="/modalidades/create" class="btn btn link btn-primary">Create a Modalidade</nuxt-link>
+      <nuxt-link to="/escaloes/create" class="btn btn link btn-primary">Create a Escalao</nuxt-link>
     </b-container>&emsp;
   </div>
 </template>
@@ -24,31 +24,31 @@ import StartPage from "../index";
 export default {
   data() {
     return {
-      fields: ["id", "nome", "actions"],
-      modalidades: []
+      fields: ["id", "nome", "modalidadeID", "actions"],
+      escaloes: []
     };
   },
   methods: {
-    deleteModalidade(id) {
+    deleteEscalao(id) {
       this.$axios({
         method: "delete",
-        url: `/api/modalidades/${id}`,
+        url: `/api/escaloes/${id}`,
         data: null,
         headers: { "Content-Type": "application/json" }
       })
         .then(response => {
           this.$toast.success("Deleted Modalidade " + id + " successfully!");
-          this.getModalidades();
+          this.getEscaloes();
         })
         .catch(function(error) {
           this.$toast.error(error);
         });
     },
-    getModalidades() {
+    getEscaloes() {
       this.$axios
-        .$get("/api/modalidades")
-        .then(modalidades => {
-          this.modalidades = modalidades;
+        .$get("/api/escaloes")
+        .then(escaloes => {
+          this.escaloes = escaloes;
         })
         .catch(function(error) {
           // handle error
@@ -57,7 +57,7 @@ export default {
     }
   },
   created() {
-    this.getModalidades();
+    this.getEscaloes();
   },
   components: {
     "startup-page": StartPage

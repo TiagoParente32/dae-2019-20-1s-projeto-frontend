@@ -6,6 +6,7 @@
       <b-table striped over :items="socios" :fields="fields">
         <template v-slot:cell(actions)="row">
           <nuxt-link class="btn btn-link" :to="`/socios/${row.item.username}`">Details</nuxt-link>
+          <nuxt-link class="btn btn-primary" :to="`/socios/${row.item.username}/edit`">Edit</nuxt-link>
           <button
             type="button"
             class="btn btn-danger btn-sm"

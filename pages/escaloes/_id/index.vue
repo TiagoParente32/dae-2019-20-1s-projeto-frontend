@@ -1,15 +1,11 @@
 <template>
   <b-container>
-    <h1>Modalidade Details</h1>
-    <p>Id: {{ modalidade.id }}</p>
-    <p>Nome: {{ modalidade.nome }}</p>
+    <h1>escalao Details</h1>
+    <p>Id: {{ escalao.id }}</p>
+    <p>Nome: {{ escalao.nome }}</p>
 
     <nuxt-link :to="`${this.id}/edit`" class="btn btn link btn-primary">Edit</nuxt-link>
 
-    <h1>Escalões</h1>
-    <b-table v-if="escaloes.length" striped over :items="escaloes" :fields="escaloesFields"></b-table>
-    <p v-else>No uploaded horarios.</p>
-    <hr />
     <h1>Horarios</h1>
     <b-table v-if="horarios.length" striped over :items="horarios" :fields="horariosFields"></b-table>
     <p v-else>No uploaded horarios.</p>
@@ -27,7 +23,7 @@
 export default {
   data() {
     return {
-      modalidade: {},
+      escalao: {},
       horariosFields: ["id", "dia", "duracao", "horaInicio"],
       userFields: ["username", "name", "email"],
       escaloesFields: ["id", "nome"]
@@ -38,22 +34,19 @@ export default {
       return this.$route.params.id;
     },
     horarios() {
-      return this.modalidade.horarios || [];
+      return this.escalao.horarios || [];
     },
     atletas() {
-      return this.modalidade.atletas || [];
+      return this.escalao.atletas || [];
     },
     treinadores() {
-      return this.modalidade.treinadores || [];
-    },
-    escaloes() {
-      return this.modalidade.escaloes || [];
+      return this.escalao.treinadores || [];
     }
   },
   created() {
     this.$axios
-      .$get(`/api/modalidades/${this.id}`)
-      .then(modalidade => (this.modalidade = modalidade || {}));
+      .$get(`/api/escaloes/${this.id}`)
+      .then(escalao => (this.escalao = escalao || {}));
   }
 };
 </script>

@@ -12,85 +12,34 @@
     >Submit</button>
     <br />
     <br />
+    <div></div>
+    <h1>Escalões</h1>
+    <nuxt-link class="btn btn-primary" :to="`/escaloes/create`">Add Escalao</nuxt-link>
+    <br />
+    <br />
+    <b-table v-if="escaloes.length" striped over :items="escaloes" :fields="escaloesFields">
+      <template v-slot:cell(actions)="row">
+        <nuxt-link class="btn btn-link" :to="`/escaloes/${row.item.id}`">Details</nuxt-link>
+        <nuxt-link class="btn btn-primary" :to="`/escaloes/${row.item.id}/edit`">Edit</nuxt-link>
+        <button
+          type="button"
+          class="btn btn-danger btn-sm"
+          @click.prevent="unrollEscalao(row.item.id)"
+        >Delete</button>
+      </template>
+    </b-table>
+    <p v-else>No uploaded horarios.</p>
+    <hr />
     <h1>Horarios</h1>
     <b-table v-if="horarios.length" striped over :items="horarios" :fields="horariosFields"></b-table>
     <p v-else>No uploaded horarios.</p>
     <hr />
-    <div>
-      <h4>Add Atleta</h4>
-      <div>
-        <label for="username">Username:</label>
-        <select class="form-control" id="category_id" name="category" v-model="newAtletaUsername">
-          <!-- <option value="-1">NA</option>  FALTA VER SE QUISER TIRAR CATEGORIA-->
-          <option
-            v-for="atleta in AllAtletas"
-            :key="atleta.username"
-            v-bind:value="atleta.username"
-          >{{ atleta.username }}</option>
-        </select>
-        <!-- <b-form-input id="username" v-model="newAtletaUsername" type="text" /> -->
-      </div>
-      <br />
-      <button
-        type="button"
-        class="btn btn-primary btn-sm"
-        @click.prevent="enrollAtleta()"
-      >Add Atleta</button>
-      <br />
-      <br />
-    </div>
-
     <h1>Atletas</h1>
-    <b-table v-if="atletas.length" striped over :items="atletas" :fields="userFields">
-      <template v-slot:cell(actions)="row">
-        <button
-          type="button"
-          class="btn btn-danger btn-sm"
-          @click.prevent="unrollAtleta(row.item.username)"
-        >Remove</button>
-      </template>
-    </b-table>
+    <b-table v-if="atletas.length" striped over :items="atletas" :fields="userFields"></b-table>
     <p v-else>No uploaded atletas.</p>
     <hr />
-    <div>
-      <h4>Add Treinador</h4>
-      <div>
-        <label for="username">Username:</label>
-        <select
-          class="form-control"
-          id="category_id"
-          name="category"
-          v-model="newTreinadorUsername"
-        >
-          <!-- <option value="-1">NA</option>  FALTA VER SE QUISER TIRAR CATEGORIA-->
-          <option
-            v-for="treinador in AllTreinadores"
-            :key="treinador.username"
-            v-bind:value="treinador.username"
-          >{{ treinador.username }}</option>
-        </select>
-        <!-- <b-form-input id="username" v-model="newTreinadorUsername" type="text" /> -->
-      </div>
-      <br />
-      <button
-        type="button"
-        class="btn btn-primary btn-sm"
-        @click.prevent="enrollTreinador()"
-      >Add Treinador</button>
-      <br />
-      <br />
-    </div>
-
     <h1>Treinadores</h1>
-    <b-table v-if="treinadores.length" striped over :items="treinadores" :fields="userFields">
-      <template v-slot:cell(actions)="row">
-        <button
-          type="button"
-          class="btn btn-danger btn-sm"
-          @click.prevent="unrollTreinador(row.item.username)"
-        >Remove</button>
-      </template>
-    </b-table>
+    <b-table v-if="treinadores.length" striped over :items="treinadores" :fields="userFields"></b-table>
     <p v-else>No uploaded treinadores.</p>
   </b-container>
 </template>
@@ -98,16 +47,68 @@
 export default {
   data() {
     return {
-      newAtletaUsername: null,
-      newTreinadorUsername: null,
+      newEscalao: null,
+      escalaoToEnrollOn: null,
       modalidade: {},
-      AllAtletas: {},
-      AllTreinadores: {},
+      AllEscaloes: {},
       horariosFields: ["id", "dia", "duracao", "horaInicio"],
-      userFields: ["username", "name", "email", "actions"]
+      userFields: ["username", "name", "email"],
+      escaloesFields: ["id", "nome", "actions"]
     };
   },
   methods: {
+    getModalidade() {
+      this.$axios
+        .$get(`/api/modalidades/${this.id}`)
+        .then(modalidade => (this.modalidade = modalidade || {}));
+    },
+    getEscaloes() {
+      this.$axios
+        .$get(`/api/escaloes`)
+        .then(escaloes => (this.AllEscaloes = escaloes || {}));
+    },
+    enrollEscalao(escalaoID) {
+      //{modalidadeId}/escaloes/enroll/{escalaoId}
+      this.$axios
+        .$put(
+          `/api/modalidades/${this.modalidade.id}/escaloes/enroll/${escalaoID}`
+        )
+        .then(escalaos => {
+          this.$toast.success(
+            "Escalao " +
+              escalaoID +
+              " adicionado á modalidade " +
+              this.modalidade.id +
+              " Sucessfully"
+          );
+          this.getModalidade();
+        })
+        .catch(function(error) {
+          console.log(error);
+          //this.$toast.success(error);
+        });
+    },
+    unrollEscalao(escalaoID) {
+      //{modalidadeId}/escaloes/enroll/{escalaoId}
+      this.$axios
+        .$put(
+          `/api/modalidades/${this.modalidade.id}/escaloes/unroll/${escalaoID}`
+        )
+        .then(escalaos => {
+          this.$toast.success(
+            "Escalao " +
+              escalaoID +
+              " removido da modalidade " +
+              this.modalidade.id +
+              " Sucessfully"
+          );
+          this.getModalidade();
+        })
+        .catch(function(error) {
+          console.log(error);
+          //this.$toast.success(error);
+        });
+    },
     updateModalidade(id) {
       this.$axios
         .$put(`/api/modalidades/${id}`, {
@@ -120,101 +121,21 @@ export default {
           this.$toast.error(error);
         });
     },
-    enrollAtleta() {
-      this.$axios
-        .$put(
-          `/api/atletas/${this.newAtletaUsername}/modalidades/enroll/${this.modalidade.id}`
-        )
-        .then(modalidades => {
-          this.$toast.success(
-            "Atleta " +
-              this.newAtletaUsername +
-              " adicionado á modalidade " +
-              this.modalidade.id +
-              " Sucessfully"
-          );
+    deleteEscalao(id) {
+      this.$axios({
+        method: "delete",
+        url: `/api/escaloes/${id}`,
+        data: null,
+        headers: { "Content-Type": "application/json" }
+      })
+        .then(response => {
+          this.$toast.success("Deleted Escalao " + id + " successfully!");
           this.getModalidade();
         })
         .catch(function(error) {
           console.log(error);
-          //this.$toast.success(error);
+          //this.$toast.error(error);
         });
-    },
-    unrollAtleta(username) {
-      this.$axios
-        .$put(
-          `/api/atletas/${username}/modalidades/unroll/${this.modalidade.id}`
-        )
-        .then(modalidades => {
-          this.$toast.success(
-            "Atleta " +
-              username +
-              " removido da modalidade " +
-              this.modalidade.id +
-              " Sucessfully"
-          );
-          this.getModalidade();
-        })
-        .catch(function(error) {
-          console.log(error);
-          this.$toast.success(error);
-        });
-    },
-    enrollTreinador() {
-      this.$axios
-        .$put(
-          `/api/treinadores/${this.newTreinadorUsername}/modalidades/enroll/${this.modalidade.id}`
-        )
-        .then(modalidades => {
-          this.$toast.success(
-            "Treinador " +
-              this.newTreinadorUsername +
-              " adicionado á modalidade " +
-              this.modalidade.id +
-              " Sucessfully"
-          );
-          this.getModalidade();
-        })
-        .catch(function(error) {
-          console.log(error);
-          //this.$toast.success(error);
-        });
-    },
-    unrollTreinador(username) {
-      this.$axios
-        .$put(
-          `/api/treinadores/${username}/modalidades/unroll/${this.modalidade.id}`
-        )
-        .then(modalidades => {
-          this.$toast.success(
-            "Treinador " +
-              username +
-              " removido da modalidade " +
-              this.modalidade.id +
-              " Sucessfully"
-          );
-          this.getModalidade();
-        })
-        .catch(function(error) {
-          console.log(error);
-          //this.$toast.success(error);
-        });
-    },
-    getModalidade() {
-      this.$axios
-        .$get(`/api/modalidades/${this.id}`)
-        .then(modalidade => (this.modalidade = modalidade || {}));
-    },
-    getAtletas() {
-      this.$axios
-        .$get(`/api/atletas`)
-        .then(atletas => (this.AllAtletas = atletas || {}));
-    },
-
-    getTreinadores() {
-      this.$axios
-        .$get(`/api/treinadores`)
-        .then(treinadores => (this.AllTreinadores = treinadores || {}));
     }
   },
   computed: {
@@ -229,11 +150,13 @@ export default {
     },
     treinadores() {
       return this.modalidade.treinadores || [];
+    },
+    escaloes() {
+      return this.modalidade.escaloes || [];
     }
   },
   created() {
-    this.getTreinadores();
-    this.getAtletas();
+    this.getEscaloes();
     this.getModalidade();
   }
 };

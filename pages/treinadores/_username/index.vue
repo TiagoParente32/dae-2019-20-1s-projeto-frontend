@@ -18,7 +18,7 @@
     <p v-else>No uploaded Modalidades.</p>
     <hr />
     <h1>Escaloes</h1>
-    <b-table v-if="escaloes.length" striped over :items="escaloes" :fields="fields"></b-table>
+    <b-table v-if="escaloes.length" striped over :items="escaloes" :fields="modalidadesFields"></b-table>
     <p v-else>No uploaded Escaloes.</p>
     <hr />
     <h1>Horarios</h1>
