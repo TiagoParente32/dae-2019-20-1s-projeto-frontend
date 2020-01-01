@@ -3,6 +3,7 @@
     <startup-page></startup-page>
     <!-- easy components usage, already shipped with bootstrap css-->
     <b-container>
+      <h1>Administradores</h1>
       <!-- try to remove :fields=”fields” to see the magic -->
       <b-table striped over :items="administrators" :fields="fields">
         <template v-slot:cell(actions)="row">
@@ -14,8 +15,11 @@
           >Delete</button>
         </template>
       </b-table>
+      <nuxt-link
+        to="/administrators/create"
+        class="btn btn link btn-primary"
+      >Create an Administrator</nuxt-link>
     </b-container>&emsp;
-    <nuxt-link to="/administrators/create" class="btn btn link btn-primary">Create an Administrator</nuxt-link>
   </div>
 </template>
 <script>

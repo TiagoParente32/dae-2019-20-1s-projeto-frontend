@@ -1,9 +1,33 @@
 <template>
   <b-container>
-    <h4>Treinador Details</h4>
-    <p>Username: {{ treinador.username }}</p>
-    <p>Name: {{ treinador.name }}</p>
-    <p>Email: {{ treinador.email }}</p>
+    <h1>Treinador Details</h1>
+    <h4>{{ treinador.username }}</h4>
+    <label for="name">Name:</label>
+    <b-form-input id="name" v-model="treinador.name" readonly></b-form-input>
+    <label for="email">E-Mail:</label>
+    <b-form-input id="email" v-model="treinador.email" readonly></b-form-input>
+    <hr />
+    <h1>Modalidades</h1>
+    <b-table
+      v-if="modalidades.length"
+      striped
+      over
+      :items="modalidades"
+      :fields="modalidadesFields"
+    ></b-table>
+    <p v-else>No uploaded Modalidades.</p>
+    <hr />
+    <h1>Escaloes</h1>
+    <b-table v-if="escaloes.length" striped over :items="escaloes" :fields="fields"></b-table>
+    <p v-else>No uploaded Escaloes.</p>
+    <hr />
+    <h1>Horarios</h1>
+    <b-table v-if="horarios.length" striped over :items="horarios" :fields="horariosFields"></b-table>
+    <p v-else>No uploaded Horarios.</p>
+    <hr />
+    <h1>Atletas</h1>
+    <b-table v-if="atletas.length" striped over :items="atletas" :fields="fields"></b-table>
+    <p v-else>No uploaded Atletas.</p>
   </b-container>
 </template>
 <script>
@@ -11,25 +35,26 @@ export default {
   data() {
     return {
       treinador: {},
-      subjectFields: [
-        "code",
-        "name",
-        "courseCode",
-        " courseYear",
-        "scholarYear"
-      ],
-      documentsFields: ["fileName", "actions"]
+      modalidadesFields: ["id", "nome"],
+      horariosFields: ["id", "dia", "duracao", "horaInicio"],
+      fields: ["username", "name", "email"]
     };
   },
   computed: {
     username() {
       return this.$route.params.username;
     },
-    subjects() {
-      return this.treinador.subjects || [];
+    modalidades() {
+      return this.treinador.modalidades || [];
     },
-    documents() {
-      return this.treinador.documents || [];
+    atletas() {
+      return this.treinador.atletas || [];
+    },
+    horarios() {
+      return this.treinador.horarios || [];
+    },
+    escaloes() {
+      return this.treinador.escaloes || [];
     }
   },
   created() {

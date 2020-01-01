@@ -1,9 +1,8 @@
 <template>
   <div>
     <startup-page></startup-page>
-    <!-- easy components usage, already shipped with bootstrap css-->
     <b-container>
-      <!-- try to remove :fields=”fields” to see the magic -->
+      <h1>Socios</h1>
       <b-table striped over :items="socios" :fields="fields">
         <template v-slot:cell(actions)="row">
           <nuxt-link class="btn btn-link" :to="`/socios/${row.item.username}`">Details</nuxt-link>
@@ -14,8 +13,8 @@
           >Delete</button>
         </template>
       </b-table>
+      <nuxt-link to="/socios/create" class="btn btn link btn-primary">Create a Sócio</nuxt-link>
     </b-container>&emsp;
-    <nuxt-link to="/socios/create" class="btn btn link btn-primary">Create a Sócio</nuxt-link>
   </div>
 </template>
 <script>
