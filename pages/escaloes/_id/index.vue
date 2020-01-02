@@ -5,6 +5,7 @@
     <p>Nome: {{ escalao.nome }}</p>
 
     <nuxt-link :to="`${this.id}/edit`" class="btn btn link btn-primary">Edit</nuxt-link>
+    <nuxt-link :to="`${this.id}/presencas`" class="btn btn link btn-primary">Presencas</nuxt-link>
 
     <h1>Horarios</h1>
     <b-table v-if="horarios.length" striped over :items="horarios" :fields="horariosFields"></b-table>

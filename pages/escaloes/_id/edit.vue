@@ -19,6 +19,8 @@
       class="btn btn-primary btn-sm"
       @click.prevent="updateEscalao(escalao.id)"
     >Submit</button>
+    <nuxt-link :to="`${this.id}/../presencas`" class="btn btn link btn-primary">Presencas</nuxt-link>
+
     <br />
     <br />
     <h1>Horarios</h1>

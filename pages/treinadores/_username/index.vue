@@ -24,6 +24,10 @@
       <template v-slot:cell(actions)="row">
         <nuxt-link class="btn btn-link" :to="`/escaloes/${row.item.id}`">Details</nuxt-link>
         <nuxt-link class="btn btn-primary" :to="`/escaloes/${row.item.id}/edit`">Edit</nuxt-link>
+        <nuxt-link
+          :to="`/escaloes/${row.item.id}/presencas`"
+          class="btn btn link btn-primary"
+        >Presenças</nuxt-link>
       </template>
     </b-table>
     <p v-else>No uploaded Escaloes.</p>
