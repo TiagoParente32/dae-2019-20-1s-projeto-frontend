@@ -23,16 +23,16 @@
         <nuxt-link class="btn btn-primary" :to="`/modalidades/${row.item.id}/edit`">Edit</nuxt-link>
       </template>
     </b-table>
-    <p v-else>No uploaded Modalidades.</p>
+    <p v-else>No Modalidades Found.</p>
     <hr />
-    <h1>Escaloes</h1>
+    <h1>Escalões</h1>
     <b-table v-if="escaloes.length" striped over :items="escaloes" :fields="escaloesFields">
       <template v-slot:cell(actions)="row">
         <nuxt-link class="btn btn-link" :to="`/escaloes/${row.item.id}`">Details</nuxt-link>
         <nuxt-link class="btn btn-primary" :to="`/escaloes/${row.item.id}/edit`">Edit</nuxt-link>
       </template>
     </b-table>
-    <p v-else>No uploaded Escaloes.</p>
+    <p v-else>No Escalões Found.</p>
     <hr />
     <h1>Horarios</h1>
     <b-table v-if="horarios.length" striped over :items="horarios" :fields="horariosFields">
@@ -41,7 +41,7 @@
         <nuxt-link class="btn btn-link" :to="`/horarios/${row.item.id}/edit`">Edit</nuxt-link>
       </template>-->
     </b-table>
-    <p v-else>No uploaded Horarios.</p>
+    <p v-else>No Horários Found.</p>
     <hr />
     <h1>Treinadores</h1>
     <b-table v-if="treinadores.length" striped over :items="treinadores" :fields="fields">
@@ -52,9 +52,9 @@
     </b-table>
     <p v-else>No uploaded Treinadores.</p>
     <hr />
-    <h1>Graduaçoes</h1>
+    <h1>Graduações</h1>
     <b-table v-if="graduacoes.length" striped over :items="graduacoes" :fields="fields"></b-table>
-    <p v-else>No uploaded Graduaçoes.</p>
+    <p v-else>No Graduações Found.</p>
     <hr />
     <h1>Pagamentos</h1>
     <b-table v-if="pagamentos.length" striped over :items="pagamentos" :fields="pagamentoFields">
@@ -63,7 +63,7 @@
         <nuxt-link class="btn btn-primary" :to="`/pagamentos/${row.item.id}/edit`">Edit</nuxt-link>
       </template>
     </b-table>
-    <p v-else>No uploaded Pagamentos.</p>
+    <p v-else>No Pagamentos Found.</p>
   </b-container>
 </template>
 <script>
@@ -111,9 +111,9 @@ export default {
     }
   },
   created() {
-    this.$axios
-      .$get(`/api/atletas/${this.username}`)
-      .then(atleta => (this.atleta = atleta || {}));
-  }
+      this.$axios
+        .$get(`/api/atletas/${this.username}`)
+        .then(atleta => (this.atleta = atleta || {}));
+    }
 };
 </script>

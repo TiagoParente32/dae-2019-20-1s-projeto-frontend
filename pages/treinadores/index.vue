@@ -38,7 +38,7 @@ export default {
       })
         .then(response => {
           this.$toast.success(
-            "Deleted Administrator " + username + " successfully!"
+            "Deleted Treinador " + username + " successfully!"
           );
           this.getTreinadores();
         })
