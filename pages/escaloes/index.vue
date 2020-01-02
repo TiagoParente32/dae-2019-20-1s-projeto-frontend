@@ -1,7 +1,5 @@
 <template>
   <div>
-    <startup-page></startup-page>
-    <!-- easy components usage, already shipped with bootstrap css-->
     <b-container>
       <h1>Escaloes</h1>
       <b-table striped over :items="escaloes" :fields="fields">
@@ -20,7 +18,6 @@
   </div>
 </template>
 <script>
-import StartPage from "../index";
 export default {
   data() {
     return {
@@ -58,9 +55,6 @@ export default {
   },
   created() {
     this.getEscaloes();
-  },
-  components: {
-    "startup-page": StartPage
   }
 };
 </script>

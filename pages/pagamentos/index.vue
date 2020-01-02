@@ -1,6 +1,5 @@
 <template>
   <div>
-    <startup-page></startup-page>
     <!-- easy components usage, already shipped with bootstrap css-->
     <b-container>
       <h1>Pagamentos</h1>
@@ -20,8 +19,6 @@
   </div>
 </template>
 <script>
-import StartPage from "../index";
-
 export default {
   data() {
     return {
@@ -68,9 +65,6 @@ export default {
   },
   created() {
     this.getPagamentos();
-  },
-  components: {
-    "startup-page": StartPage
   }
 };
 </script>

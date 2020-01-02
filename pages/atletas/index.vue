@@ -1,7 +1,5 @@
 <template>
   <div>
-    <startup-page></startup-page>
-    <!-- easy components usage, already shipped with bootstrap css-->
     <b-container>
       <h1>Atletas</h1>
       <b-table striped over :items="atletas" :fields="fields">
@@ -20,7 +18,6 @@
   </div>
 </template>
 <script>
-import StartPage from "../index.vue";
 export default {
   data() {
     return {
@@ -59,9 +56,6 @@ export default {
   },
   created() {
     this.getAtletas();
-  },
-  components: {
-    "startup-page": StartPage
   }
 };
 </script>

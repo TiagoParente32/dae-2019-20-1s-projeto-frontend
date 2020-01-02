@@ -1,6 +1,5 @@
 <template>
   <div>
-    <startup-page></startup-page>
     <b-container>
       <h1>Treinadores</h1>
       <b-table striped over :items="treinadores" :fields="fields">
@@ -19,8 +18,6 @@
   </div>
 </template>
 <script>
-import StartPage from "../index";
-
 export default {
   data() {
     return {
@@ -60,9 +57,6 @@ export default {
   },
   created() {
     this.getTreinadores();
-  },
-  components: {
-    "startup-page": StartPage
   }
 };
 </script>
