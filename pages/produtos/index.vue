@@ -25,7 +25,6 @@
           >Delete</button>
         </template>
       </b-table>
-      <p class="mt-3">Current Page: {{ currentPage }}</p>
 
       <b-pagination
         v-model="currentPage"
