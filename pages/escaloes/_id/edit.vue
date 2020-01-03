@@ -6,7 +6,12 @@
     <b-form-input id="nome" v-model="escalao.nome"></b-form-input>
 
     <label for="username">Modalidade:</label>
-    <select class="form-control" id="modalidade_id" name="modalidade" v-model="escalao.modalidadeID">
+    <select
+      class="form-control"
+      id="modalidade_id"
+      name="modalidade"
+      v-model="escalao.modalidadeID"
+    >
       <option
         v-for="modalidade in AllModalidades"
         :key="modalidade.nome"
@@ -21,26 +26,57 @@
     >Submit</button>
     <nuxt-link :to="`${this.id}/../presencas`" class="btn btn-primary btn-sm">Presenças</nuxt-link>
 
-    <br />
-    <br />
-    <h1>Horários</h1>
-    <b-table v-if="horarios.length" striped over :items="horarios" :fields="horariosFields"></b-table>
-    <p v-else>No Horários Found.</p>
+    <hr />
+    <div>
+      <b-button v-b-toggle.collapse-1 variant="primary">Add Horario</b-button>
+      <b-collapse id="collapse-1" class="mt-2">
+        <h4>Add Horario</h4>
+        <label for="id">id:</label>
+        <b-form-input id="id" v-model="newHorario.id"></b-form-input>
+        <label for="type">Dia da Semana:</label>
+
+        <select class="form-control" id="type" name="type" v-model="newHorario.dia">
+          <option
+            v-for="option in optionsDia"
+            :key="option.value"
+            v-bind:value="option.value"
+          >{{ option.text }}</option>
+        </select>
+        <label for="horaInicio">Hora Inicio:</label>
+        <b-form-input id="horaInicio" v-model="newHorario.horaInicio"></b-form-input>
+        <label for="duracao">Duração:</label>
+        <b-form-input id="duracao" v-model="newHorario.duracao"></b-form-input>
+        <br />
+        <button
+          type="button"
+          class="btn btn-primary btn-sm"
+          @click.prevent="addHorario()"
+        >Create Horario</button>
+      </b-collapse>
+    </div>
+    <h1>Horarios</h1>
+    <b-table v-if="horarios.length" striped over :items="horarios" :fields="horariosFields">
+      <template v-slot:cell(actions)="row">
+        <button
+          type="button"
+          class="btn btn-danger"
+          @click.prevent="removeHorario(row.item.id)"
+        >Delete</button>
+      </template>
+    </b-table>
+    <p v-else>No uploaded horarios.</p>
     <hr />
     <div>
       <h4>Add Atleta</h4>
-      <div class="row">
-        <div class="col">
-          <label for="username">Username:</label>
-          <select class="form-control" id="username" name="username" v-model="newAtletaUsername">
-            <option
-              v-for="atleta in AllAtletas"
-              :key="atleta.username"
-              v-bind:value="atleta.username"
-            >{{ atleta.username }}</option>
-          </select>
-        </div>
-      </div>
+
+      <label for="username">Username:</label>
+      <select class="form-control" id="username" name="username" v-model="newAtletaUsername">
+        <option
+          v-for="atleta in AllAtletas"
+          :key="atleta.username"
+          v-bind:value="atleta.username"
+        >{{ atleta.username }}</option>
+      </select>
 
       <br />
       <button
@@ -59,7 +95,7 @@
         <nuxt-link class="btn btn-primary btn-sm" :to="`/atletas/${row.item.username}/edit`">Edit</nuxt-link>
         <button
           type="button"
-          class="btn btn-danger btn-sm"
+          class="btn btn-danger"
           @click.prevent="unrollAtleta(row.item.username)"
         >Remove</button>
       </template>
@@ -101,10 +137,13 @@
     <b-table v-if="treinadores.length" striped over :items="treinadores" :fields="userFields">
       <template v-slot:cell(actions)="row">
         <nuxt-link class="btn btn-primary btn-sm" :to="`/treinadores/${row.item.username}`">Details</nuxt-link>
-        <nuxt-link class="btn btn-primary btn-sm" :to="`/treinadores/${row.item.username}/edit`">Edit</nuxt-link>
+        <nuxt-link
+          class="btn btn-primary btn-sm"
+          :to="`/treinadores/${row.item.username}/edit`"
+        >Edit</nuxt-link>
         <button
           type="button"
-          class="btn btn-danger btn-sm"
+          class="btn btn-danger"
           @click.prevent="unrollTreinador(row.item.username)"
         >Remove</button>
       </template>
@@ -119,13 +158,23 @@ export default {
       newAtletaUsername: null,
       newTreinadorUsername: null,
       escalaoToEnrollOn: null,
+      newHorario: {},
       escalao: {},
       AllAtletas: {},
       AllTreinadores: {},
       AllModalidades: {},
-      horariosFields: ["id", "dia", "duracao", "horaInicio"],
+      horariosFields: ["id", "dia", "duracao", "horaInicio", "actions"],
       userFields: ["username", "name", "email", "actions"],
-      escaloesFields: ["id", "nome", "actions"]
+      escaloesFields: ["id", "nome", "actions"],
+      optionsDia: [
+        { text: "Segunda-Feira", value: "MONDAY" },
+        { text: "Terça-Feira", value: "TUESDAY" },
+        { text: "Quarta-Feira", value: "WEDNESDAY" },
+        { text: "Quinta-Feira", value: "THURSDAY" },
+        { text: "Sexta-Feira", value: "FRIDAY" },
+        { text: "Sabado", value: "SATURDAY" },
+        { text: "Domingo", value: "SUNDAY" }
+      ]
     };
   },
   methods: {
@@ -140,6 +189,60 @@ export default {
         })
         .catch(function(error) {
           this.$toast.error(error);
+        });
+    },
+    removeHorario() {
+      this.$axios
+        .$put(`/api/escaloes/${this.id}/horarios/unroll/${this.newHorario.id}`)
+        .then(horarios => {
+          this.$axios({
+            method: "delete",
+            url: `/api/horarios/${this.newHorario.id}`,
+            data: null,
+            headers: { "Content-Type": "application/json" }
+          })
+            .then(response => {
+              this.$toast.success(
+                "Deleted Horario " + this.newHorario.id + " successfully!"
+              );
+              this.getEscalao();
+            })
+            .catch(function(error) {
+              this.$toast.error(error);
+            });
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    },
+    addHorario() {
+      this.$axios
+        .$post(`/api/horarios`, this.newHorario)
+        .then(horarios => {
+          this.$toast.success(
+            "Horario " + this.newHorario.id + " created Sucessfully"
+          );
+          this.$axios
+            .$put(
+              `/api/escaloes/${this.id}/horarios/enroll/${this.newHorario.id}`
+            )
+            .then(escalao => {
+              this.$toast.success(
+                "Horario " +
+                  this.newHorario.id +
+                  " added to Escalao " +
+                  this.id +
+                  " Sucessfully"
+              );
+              this.getEscalao();
+            })
+            .catch(function(error) {
+              this.$toast.error(error);
+            });
+        })
+        .catch(function(error) {
+          console.log(error);
+          //this.$toast.success(error);
         });
     },
     enrollAtleta() {

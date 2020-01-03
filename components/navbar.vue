@@ -1,6 +1,6 @@
 <template>
   <nav class="navbar navbar-expand-sm navbar-dark bg-primary">
-    <a class="navbar-brand" href="#">Sports Management</a>
+    <a class="navbar-brand" href="/">Sports Management</a>
     <button
       class="navbar-toggler d-lg-none"
       type="button"
