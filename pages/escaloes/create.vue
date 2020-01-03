@@ -1,6 +1,6 @@
 <template>
   <form @submit.prevent="create">
-    <h1>Create Escalao</h1>
+    <h1>Create Escalão</h1>
     <label for="id">Id:</label>
     <b-form-input id="id" v-model="id"></b-form-input>
 
@@ -15,7 +15,7 @@
       >{{ modalidade.nome }}</option>
     </select>
     <hr />
-    <nuxt-link to="/escaloes">Return</nuxt-link>
+    <nuxt-link class="btn btn-primary" to="/escaloes">Return</nuxt-link>
     <b-button class="btn-warning" type="reset">RESET</b-button>
     <b-button class="btn-success" @click.prevent="create">CREATE</b-button>
   </form>

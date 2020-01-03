@@ -13,9 +13,9 @@
     <label for="email">E-mail:</label>
     <b-form-input id="email" v-model="email"></b-form-input>
     <hr />
-    <nuxt-link to="/administrators">Return</nuxt-link>
-    <b-button class="btn-warning" type="reset">RESET</b-button>
-    <b-button class="btn-success" @click.prevent="create">CREATE</b-button>
+    <nuxt-link class="btn btn-primary btn-sm" to="/administrators">Return</nuxt-link>
+    <b-button class="btn-warning btn-sm" type="reset">RESET</b-button>
+    <b-button class="btn-success btn-sm" @click.prevent="create">CREATE</b-button>
   </form>
 </template>
 <script>

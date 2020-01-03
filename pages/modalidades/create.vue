@@ -7,7 +7,7 @@
     <label for="nome">Nome:</label>
     <b-form-input id="nome" v-model="nome"></b-form-input>
     <hr />
-    <nuxt-link to="/modalidades">Return</nuxt-link>
+    <nuxt-link class="btn-primary" to="/modalidades">Return</nuxt-link>
     <b-button class="btn-warning" type="reset">RESET</b-button>
     <b-button class="btn-success" @click.prevent="create">CREATE</b-button>
   </form>

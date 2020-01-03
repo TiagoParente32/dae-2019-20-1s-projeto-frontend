@@ -40,7 +40,7 @@ export default {
       promise.then(() => {
         this.$toast.success("You are logged in!");
         // check if the user $auth.user object is set
-        //console.log(this.$auth.user);
+        console.log(this.$auth.user);
 
         if (this.$auth.user.groups.includes("Administrador")) {
           this.$router.push("/");
@@ -60,7 +60,7 @@ export default {
       });
       promise.catch(() => {
         this.$toast.error(
-          "Sorry, you cant login. Ensure your credentials are correct"
+          "Sorry, you can't login. Ensure your credentials are correct"
         );
       });
     },

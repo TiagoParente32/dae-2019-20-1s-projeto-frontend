@@ -5,8 +5,8 @@
       <h1>Modalidades</h1>
       <b-table striped over :items="modalidades" :fields="fields">
         <template v-slot:cell(actions)="row">
-          <nuxt-link class="btn btn-link" :to="`/modalidades/${row.item.id}`">Details</nuxt-link>
-          <nuxt-link class="btn btn-primary" :to="`/modalidades/${row.item.id}/edit`">Edit</nuxt-link>
+          <nuxt-link class="btn btn-primary btn-sm" :to="`/modalidades/${row.item.id}`">Details</nuxt-link>
+          <nuxt-link class="btn btn-primary btn-sm" :to="`/modalidades/${row.item.id}/edit`">Edit</nuxt-link>
           <button
             type="button"
             class="btn btn-danger btn-sm"
@@ -14,7 +14,7 @@
           >Delete</button>
         </template>
       </b-table>
-      <nuxt-link to="/modalidades/create" class="btn btn link btn-primary">Create a Modalidade</nuxt-link>
+      <nuxt-link to="/modalidades/create" class="btn btn-primary">Create a Modalidade</nuxt-link>
     </b-container>&emsp;
   </div>
 </template>

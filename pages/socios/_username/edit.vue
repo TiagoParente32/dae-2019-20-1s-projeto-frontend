@@ -1,6 +1,6 @@
 <template>
   <b-container>
-    <h1>Socio Details</h1>
+    <h1>Sócio {{socio.username}} Details</h1>
     <label for="username">Username:</label>
     <b-form-input id="username" v-model="socio.username" readonly></b-form-input>
     <label for="name">Name:</label>
@@ -21,11 +21,11 @@
     <h1>Pagamentos</h1>
     <b-table v-if="pagamentos.length" striped over :items="pagamentos" :fields="pagamentoFields">
       <template v-slot:cell(actions)="row">
-        <nuxt-link class="btn btn-link" :to="`/pagamentos/${row.item.id}`">Details</nuxt-link>
-        <nuxt-link class="btn btn-primary" :to="`/pagamentos/${row.item.id}/edit`">Edit</nuxt-link>
+        <nuxt-link class="btn btn-primary btn-sm" :to="`/pagamentos/${row.item.id}`">Details</nuxt-link>
+        <nuxt-link class="btn btn-primary btn-sm" :to="`/pagamentos/${row.item.id}/edit`">Edit</nuxt-link>
       </template>
     </b-table>
-    <p v-else>No uploaded Pagamentos.</p>
+    <p v-else>No Pagamentos Uploaded.</p>
   </b-container>
 </template>
 <script>
@@ -51,7 +51,7 @@ export default {
     updateSocio(username) {
       if (this.newPasswd != null && this.newPasswdC != null) {
         if (this.newPasswd != this.newPasswdC) {
-          this.$toast.error("Password And Password Confirmation dont match");
+          this.$toast.error("Password And Password Confirmation don't match");
           return;
         }
         this.socio.password = this.newPasswd;
@@ -67,7 +67,7 @@ export default {
           email: this.socio.email
         })
         .then(modalidades => {
-          this.$toast.success("Socio " + username + " updated Sucessfully");
+          this.$toast.success("Sócio " + username + " updated Sucessfully");
           this.$router.push(`/socios/${username}`);
         })
         .catch(function(error) {

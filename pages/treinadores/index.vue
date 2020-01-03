@@ -4,8 +4,8 @@
       <h1>Treinadores</h1>
       <b-table striped over :items="treinadores" :fields="fields">
         <template v-slot:cell(actions)="row">
-          <nuxt-link class="btn btn-link" :to="`/treinadores/${row.item.username}`">Details</nuxt-link>
-          <nuxt-link class="btn btn-primary" :to="`/treinadores/${row.item.username}/edit`">Edit</nuxt-link>
+          <nuxt-link class="btn btn-primary btn-sm" :to="`/treinadores/${row.item.username}`">Details</nuxt-link>
+          <nuxt-link class="btn btn-primary btn-sm" :to="`/treinadores/${row.item.username}/edit`">Edit</nuxt-link>
           <button
             type="button"
             class="btn btn-danger btn-sm"
@@ -13,7 +13,7 @@
           >Delete</button>
         </template>
       </b-table>
-      <nuxt-link to="/treinadores/create" class="btn btn link btn-primary">Create a Treinador</nuxt-link>
+      <nuxt-link to="/treinadores/create" class="btn btn-primary">Create a Treinador</nuxt-link>
     </b-container>&emsp;
   </div>
 </template>

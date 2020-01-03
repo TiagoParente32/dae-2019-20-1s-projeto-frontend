@@ -1,6 +1,6 @@
 <template>
   <b-container>
-    <h1>Presencas</h1>
+    <h1>Presenças</h1>
     <p>Id: {{ presenca.id }}</p>
     <p>Nome: {{ presenca.date }}</p>
 
@@ -15,7 +15,7 @@
         >Presente</b-form-checkbox>
       </template>
     </b-table>
-    <p v-else>No uploaded atletas.</p>
+    <p v-else>No Atletas Found.</p>
 
     <button
       type="button"

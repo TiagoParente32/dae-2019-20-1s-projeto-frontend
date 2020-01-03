@@ -16,15 +16,16 @@
         :current-page="currentPage"
       >
         <template v-slot:cell(actions)="row">
-          <nuxt-link class="btn btn-link" :to="`/produtos/${row.item.id}`">Details</nuxt-link>
-          <nuxt-link class="btn btn-primary" :to="`/produtos/${row.item.id}/edit`">Edit</nuxt-link>
+          <nuxt-link class="btn btn-primary btn-sm" :to="`/produtos/${row.item.id}`">Details</nuxt-link>
+          <nuxt-link class="btn btn-primary btn-sm" :to="`/produtos/${row.item.id}/edit`">Edit</nuxt-link>
           <button
             type="button"
-            class="btn btn-danger"
+            class="btn btn-danger btn-sm"
             @click.prevent="deleteProduto(row.item.id)"
           >Delete</button>
         </template>
       </b-table>
+      <nuxt-link to="/produtos/create" class="btn btn-primary">Create a Produto</nuxt-link>
 
       <b-pagination
         v-model="currentPage"

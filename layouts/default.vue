@@ -16,7 +16,7 @@ export default {
   methods: {
     logout() {
       this.$auth.logout("local");
-      this.$toast.success("logout sucessfull");
+      this.$toast.success("Logout Sucessfull");
     }
   }
 };

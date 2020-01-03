@@ -4,8 +4,8 @@
     <h4>Id: {{ pagamento.id }}</h4>
     <!-- <label for="username">User:</label> -->
     <div>
-      <label for="username">Socio:</label>
-      <select class="form-control" id="category_id" name="category" v-model="pagamento.username">
+      <label for="username">Sócio:</label>
+      <select class="form-control" id="socio_id" name="socio" v-model="pagamento.username">
         <option
           v-for="socio in socios"
           :key="socio.username"
@@ -15,8 +15,8 @@
     </div>
 
     <div>
-      <label for="prod">Produto Id:</label>
-      <select class="form-control" id="category_id" name="category" v-model="pagamento.produtoID">
+      <label for="prod">Produto ID:</label>
+      <select class="form-control" id="produto_id" name="produto" v-model="pagamento.produtoID">
         <option
           v-for="produto in produtos"
           :key="produto.id"
@@ -26,7 +26,7 @@
     </div>
     <label for="quantidade">Quantidade:</label>
     <b-form-input id="quantidade" v-model="pagamento.quantidade" type="number"></b-form-input>
-    <label for="precoFinal">PrecoFinal:</label>
+    <label for="precoFinal">Preço Final:</label>
     <b-form-input id="precoFinal" v-model="pagamento.precoFinal" type="number" step=".01"></b-form-input>
     <label for="estado">Estado:</label>
     <select class="form-control" id="type" name="type" v-model="pagamento.estado">
@@ -96,7 +96,7 @@ export default {
           estado: this.pagamento.estado
         })
         .then(modalidades => {
-          this.$toast.success("Pagamento " + id + " updated Sucessfully");
+          this.$toast.success("Pagamento com ID " + id + " updated Sucessfully");
           this.$router.push(`/pagamentos/${id}`);
         })
         .catch(function(error) {

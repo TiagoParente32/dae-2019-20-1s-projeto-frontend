@@ -7,7 +7,7 @@
     <label for="date">date:</label>
     <b-form-input id="date" v-model="newPresenca.date" type="date"></b-form-input>
     <hr />
-    <nuxt-link :to="`/escaloes/${id}`">Return</nuxt-link>
+    <nuxt-link class="btn btn-primary" :to="`/escaloes/${id}`">Return</nuxt-link>
     <b-button class="btn-warning" type="reset">RESET</b-button>
     <b-button class="btn-success" @click.prevent="create">CREATE</b-button>
     <hr />
@@ -15,12 +15,12 @@
       <template v-slot:cell(actions)="row">
         <!-- <nuxt-link class="btn btn-link" :to="`/escaloes/${id}/presencas/${row.item.id}`">Details</nuxt-link> -->
         <nuxt-link
-          class="btn btn-primary"
+          class="btn btn-primary btn-sm"
           :to="`/escaloes/${id}/presencas/${row.item.id}/edit`"
         >Edit</nuxt-link>
       </template>
     </b-table>
-    <p v-else>No uploaded presencas.</p>
+    <p v-else>No Presenças Found.</p>
   </b-container>
 </template>
 <script>

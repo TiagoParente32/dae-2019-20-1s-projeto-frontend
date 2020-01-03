@@ -14,7 +14,7 @@
       </select>
     </div>
     <div>
-      <label for="produtoID">produto ID:</label>
+      <label for="produtoID">Produto ID:</label>
       <select class="form-control" id="produtoID" name="produtoID" v-model="produtoID">
         <option
           v-for="produto in AllProdutos"
@@ -26,7 +26,7 @@
 
     <label for="quantidade">Quantidade:</label>
     <b-form-input id="quantidade" v-model="quantidade" type="number"></b-form-input>
-    <label for="precoFinal">Preco Final:</label>
+    <label for="precoFinal">Preço Final:</label>
     <b-form-input id="precoFinal" v-model="precoFinal" type="number" step="0.01"></b-form-input>
 
     <div>
@@ -42,7 +42,7 @@
     </div>
 
     <hr />
-    <nuxt-link to="/pagamentos">Return</nuxt-link>
+    <nuxt-link class="btn btn-primary" to="/pagamentos">Return</nuxt-link>
     <b-button class="btn-warning" type="reset">RESET</b-button>
     <b-button class="btn-success" @click.prevent="create">CREATE</b-button>
   </form>

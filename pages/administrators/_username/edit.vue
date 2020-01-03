@@ -1,6 +1,6 @@
 <template>
   <b-container>
-    <h1>Administrador Details</h1>
+    <h1>Edit Administrador -> {{administrador.username}}'s Profile</h1>
     <label for="username">Username:</label>
     <b-form-input id="username" v-model="administrador.username" readonly></b-form-input>
     <label for="name">Name:</label>
@@ -14,7 +14,7 @@
     <br />
     <button
       type="button"
-      class="btn btn-primary btn-sm"
+      class="btn btn-primary"
       @click.prevent="updateAdministrator(administrador.username)"
     >Submit</button>
   </b-container>
@@ -50,7 +50,7 @@ export default {
         })
         .then(modalidades => {
           this.$toast.success(
-            "administrador " + username + " updated Sucessfully"
+            "Administrador " + username + " updated Sucessfully"
           );
           this.$router.push(`/administrators/${username}`);
         })

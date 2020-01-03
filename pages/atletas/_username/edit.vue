@@ -1,6 +1,6 @@
 <template>
   <b-container>
-    <h1>Atleta Details</h1>
+    <h1>Atleta {{atleta.username}}'s Details</h1>
     <label for="username">Username:</label>
     <b-form-input id="username" v-model="atleta.username" readonly></b-form-input>
     <label for="name">Name:</label>
@@ -27,46 +27,46 @@
       :fields="modalidadesFields"
     >
       <template v-slot:cell(actions)="row">
-        <nuxt-link class="btn btn-link" :to="`/modalidades/${row.item.id}`">Details</nuxt-link>
-        <nuxt-link class="btn btn-primary" :to="`/modalidades/${row.item.id}/edit`">Edit</nuxt-link>
+        <nuxt-link class="btn btn-primary btn-sm" :to="`/modalidades/${row.item.id}`">Details</nuxt-link>
+        <nuxt-link class="btn btn-primary btn-sm" :to="`/modalidades/${row.item.id}/edit`">Edit</nuxt-link>
       </template>
     </b-table>
-    <p v-else>No uploaded Modalidades.</p>
+    <p v-else>No Modalidades Found.</p>
     <hr />
-    <h1>Escaloes</h1>
+    <h1>Escalões</h1>
     <b-table v-if="escaloes.length" striped over :items="escaloes" :fields="escaloesFields">
       <template v-slot:cell(actions)="row">
-        <nuxt-link class="btn btn-link" :to="`/escaloes/${row.item.id}`">Details</nuxt-link>
-        <nuxt-link class="btn btn-primary" :to="`/escaloes/${row.item.id}/edit`">Edit</nuxt-link>
+        <nuxt-link class="btn btn-primary btn-sm" :to="`/escaloes/${row.item.id}`">Details</nuxt-link>
+        <nuxt-link class="btn btn-primary btn-sm" :to="`/escaloes/${row.item.id}/edit`">Edit</nuxt-link>
       </template>
     </b-table>
-    <p v-else>No uploaded Escaloes.</p>
+    <p v-else>No Escalões Found.</p>
     <hr />
-    <h1>Horarios</h1>
+    <h1>Horários</h1>
     <b-table v-if="horarios.length" striped over :items="horarios" :fields="horariosFields"></b-table>
-    <p v-else>No uploaded Horarios.</p>
+    <p v-else>No Horários Found</p>
     <hr />
     <h1>Treinadores</h1>
     <b-table v-if="treinadores.length" striped over :items="treinadores" :fields="fields">
       <template v-slot:cell(actions)="row">
-        <nuxt-link class="btn btn-link" :to="`/treinadores/${row.item.username}`">Details</nuxt-link>
-        <nuxt-link class="btn btn-primary" :to="`/treinadores/${row.item.username}/edit`">Edit</nuxt-link>
+        <nuxt-link class="btn btn-primary btn-sm" :to="`/treinadores/${row.item.username}`">Details</nuxt-link>
+        <nuxt-link class="btn btn-primary btn-sm" :to="`/treinadores/${row.item.username}/edit`">Edit</nuxt-link>
       </template>
     </b-table>
-    <p v-else>No uploaded Treinadores.</p>
+    <p v-else>No Treinadores Found.</p>
     <hr />
     <h1>Graduaçoes</h1>
     <b-table v-if="graduacoes.length" striped over :items="graduacoes" :fields="fields"></b-table>
-    <p v-else>No uploaded Graduaçoes.</p>
+    <p v-else>No Graduações Found.</p>
     <hr />
     <h1>Pagamentos</h1>
     <b-table v-if="pagamentos.length" striped over :items="pagamentos" :fields="pagamentoFields">
       <template v-slot:cell(actions)="row">
-        <nuxt-link class="btn btn-link" :to="`/pagamentos/${row.item.id}`">Details</nuxt-link>
-        <nuxt-link class="btn btn-primary" :to="`/pagamentos/${row.item.id}/edit`">Edit</nuxt-link>
+        <nuxt-link class="btn btn-primary btn-sm" :to="`/pagamentos/${row.item.id}`">Details</nuxt-link>
+        <nuxt-link class="btn btn-primary btn-sm" :to="`/pagamentos/${row.item.id}/edit`">Edit</nuxt-link>
       </template>
     </b-table>
-    <p v-else>No uploaded Pagamentos.</p>
+    <p v-else>No Pagamentos Found.</p>
   </b-container>
 </template>
 <script>
@@ -95,7 +95,7 @@ export default {
     updateAtleta(username) {
       if (this.newPasswd != null && this.newPasswdC != null) {
         if (this.newPasswd != this.newPasswdC) {
-          this.$toast.error("Password And Password Confirmation dont match");
+          this.$toast.error("Password And Password Confirmation don't match");
           return;
         }
         this.atleta.password = this.newPasswd;

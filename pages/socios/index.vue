@@ -13,7 +13,7 @@
           >Delete</button>
         </template>
       </b-table>
-      <nuxt-link to="/socios/create" class="btn btn link btn-primary">Create a Sócio</nuxt-link>
+      <nuxt-link to="/socios/create" class="btn btn-primary">Create a Sócio</nuxt-link>
     </b-container>&emsp;
   </div>
 </template>

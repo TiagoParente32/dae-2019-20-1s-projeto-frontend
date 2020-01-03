@@ -1,11 +1,11 @@
 <template>
   <div>
     <b-container>
-      <h1>Escaloes</h1>
+      <h1>Escalões</h1>
       <b-table striped over :items="escaloes" :fields="fields">
         <template v-slot:cell(actions)="row">
-          <nuxt-link class="btn btn-link" :to="`/escaloes/${row.item.id}`">Details</nuxt-link>
-          <nuxt-link class="btn btn-primary" :to="`/escaloes/${row.item.id}/edit`">Edit</nuxt-link>
+          <nuxt-link class="btn btn-primary btn-sm" :to="`/escaloes/${row.item.id}`">Details</nuxt-link>
+          <nuxt-link class="btn btn-primary btn-sm" :to="`/escaloes/${row.item.id}/edit`">Edit</nuxt-link>
           <button
             type="button"
             class="btn btn-danger btn-sm"
@@ -13,7 +13,7 @@
           >Delete</button>
         </template>
       </b-table>
-      <nuxt-link to="/escaloes/create" class="btn btn link btn-primary">Create a Escalao</nuxt-link>
+      <nuxt-link to="/escaloes/create" class="btn btn-primary btn-sm">Create a Escalão</nuxt-link>
     </b-container>&emsp;
   </div>
 </template>
@@ -34,7 +34,7 @@ export default {
         headers: { "Content-Type": "application/json" }
       })
         .then(response => {
-          this.$toast.success("Deleted Modalidade " + id + " successfully!");
+          this.$toast.success("Deleted Escalão with id " + id + " successfully!");
           this.getEscaloes();
         })
         .catch(function(error) {

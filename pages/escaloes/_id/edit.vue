@@ -1,12 +1,12 @@
 <template>
   <b-container>
-    <h1>Edit Escalao</h1>
+    <h1>Edit Escalão</h1>
     <p>Id: {{ escalao.id }}</p>
     <label for="nome">Nome:</label>
     <b-form-input id="nome" v-model="escalao.nome"></b-form-input>
 
     <label for="username">Modalidade:</label>
-    <select class="form-control" id="category_id" name="category" v-model="escalao.modalidadeID">
+    <select class="form-control" id="modalidade_id" name="modalidade" v-model="escalao.modalidadeID">
       <option
         v-for="modalidade in AllModalidades"
         :key="modalidade.nome"
@@ -14,14 +14,18 @@
       >{{ modalidade.nome }}</option>
     </select>
     <br />
-    <button type="button" class="btn btn-primary" @click.prevent="updateEscalao(escalao.id)">Submit</button>
-    <nuxt-link :to="`${this.id}/../presencas`" class="btn link btn-primary">Presencas</nuxt-link>
+    <button
+      type="button"
+      class="btn btn-primary btn-sm"
+      @click.prevent="updateEscalao(escalao.id)"
+    >Submit</button>
+    <nuxt-link :to="`${this.id}/../presencas`" class="btn btn-primary btn-sm">Presenças</nuxt-link>
 
     <br />
     <br />
-    <h1>Horarios</h1>
+    <h1>Horários</h1>
     <b-table v-if="horarios.length" striped over :items="horarios" :fields="horariosFields"></b-table>
-    <p v-else>No uploaded horarios.</p>
+    <p v-else>No Horários Found.</p>
     <hr />
     <div>
       <h4>Add Atleta</h4>
@@ -51,8 +55,8 @@
     <h1>Atletas</h1>
     <b-table v-if="atletas.length" striped over :items="atletas" :fields="userFields">
       <template v-slot:cell(actions)="row">
-        <nuxt-link class="btn btn-link" :to="`/atletas/${row.item.username}`">Details</nuxt-link>
-        <nuxt-link class="btn btn-primary" :to="`/atletas/${row.item.username}/edit`">Edit</nuxt-link>
+        <nuxt-link class="btn btn-primary btn-sm" :to="`/atletas/${row.item.username}`">Details</nuxt-link>
+        <nuxt-link class="btn btn-primary btn-sm" :to="`/atletas/${row.item.username}/edit`">Edit</nuxt-link>
         <button
           type="button"
           class="btn btn-danger btn-sm"
@@ -60,7 +64,7 @@
         >Remove</button>
       </template>
     </b-table>
-    <p v-else>No uploaded atletas.</p>
+    <p v-else>No Atletas Found.</p>
     <hr />
     <div>
       <h4>Add Treinador</h4>
@@ -70,8 +74,8 @@
             <label for="username">Username:</label>
             <select
               class="form-control"
-              id="category_id"
-              name="category"
+              id="treinador_id"
+              name="treinador"
               v-model="newTreinadorUsername"
             >
               <option
@@ -96,8 +100,8 @@
     <h1>Treinadores</h1>
     <b-table v-if="treinadores.length" striped over :items="treinadores" :fields="userFields">
       <template v-slot:cell(actions)="row">
-        <nuxt-link class="btn btn-link" :to="`/treinadores/${row.item.username}`">Details</nuxt-link>
-        <nuxt-link class="btn btn-primary" :to="`/treinadores/${row.item.username}/edit`">Edit</nuxt-link>
+        <nuxt-link class="btn btn-primary btn-sm" :to="`/treinadores/${row.item.username}`">Details</nuxt-link>
+        <nuxt-link class="btn btn-primary btn-sm" :to="`/treinadores/${row.item.username}/edit`">Edit</nuxt-link>
         <button
           type="button"
           class="btn btn-danger btn-sm"
@@ -105,7 +109,7 @@
         >Remove</button>
       </template>
     </b-table>
-    <p v-else>No uploaded treinadores.</p>
+    <p v-else>No Treinadores Found.</p>
   </b-container>
 </template>
 <script>
@@ -132,7 +136,7 @@ export default {
           modalidadeID: this.escalao.modalidadeID
         })
         .then(escalao => {
-          this.$toast.success("Escalao " + id + " updated Sucessfully");
+          this.$toast.success("Escalão with id " + id + " updated Sucessfully");
         })
         .catch(function(error) {
           this.$toast.error(error);
@@ -147,9 +151,9 @@ export default {
           this.$toast.success(
             "Atleta " +
               this.newAtletaUsername +
-              " adicionado á escalao " +
+              " adicionado ao escalão " +
               this.escalao.escalaoID +
-              " e ao escalao " +
+              " e ao escalão " +
               this.escalao.id +
               " Sucessfully"
           );
@@ -169,7 +173,7 @@ export default {
           this.$toast.success(
             "Atleta " +
               username +
-              " removido da escalao " +
+              " removido do escalão " +
               this.escalao.id +
               " Sucessfully"
           );
@@ -189,9 +193,9 @@ export default {
           this.$toast.success(
             "Treinador " +
               this.newTreinadorUsername +
-              " adicionado á escalao " +
+              " adicionado ao escalão " +
               this.escalao.id +
-              " no escalao com id " +
+              " no escalão com id " +
               this.escalaoToEnrollOn +
               " Sucessfully"
           );
@@ -211,7 +215,7 @@ export default {
           this.$toast.success(
             "Treinador " +
               username +
-              " removido da escalao " +
+              " removido do escalão " +
               this.escalao.id +
               " Sucessfully"
           );

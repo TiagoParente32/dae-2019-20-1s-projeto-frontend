@@ -44,7 +44,7 @@ export default {
         headers: { "Content-Type": "application/json" }
       })
         .then(response => {
-          this.$toast.success("Deleted Pagamento " + id + " successfully!");
+          this.$toast.success("Deleted Pagamento with ID " + id + " successfully!");
           this.getPagamentos();
         })
         .catch(function(error) {

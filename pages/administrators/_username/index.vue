@@ -1,6 +1,6 @@
 <template>
   <b-container>
-    <h1>Administrador Details</h1>
+    <h1>Administrador {{administrador.username}}'s Details</h1>
     <label for="username">Username:</label>
     <b-form-input id="username" v-model="administrador.username" readonly></b-form-input>
     <label for="name">Name:</label>
@@ -8,7 +8,7 @@
     <label for="email">E-Mail:</label>
     <b-form-input id="email" v-model="administrador.email" readonly></b-form-input>
     <br />
-    <nuxt-link :to="`${this.username}/edit`" class="btn btn link btn-primary">Edit</nuxt-link>
+    <nuxt-link :to="`${this.username}/edit`" class="btn btn-primary">Edit</nuxt-link>
   </b-container>
 </template>
 <script>
