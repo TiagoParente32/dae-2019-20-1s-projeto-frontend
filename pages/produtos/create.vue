@@ -1,33 +1,50 @@
 <template>
   <b-container>
-    <form @submit.prevent="create">
-      <h1>Create Produto</h1>
-      <label for="id">Id:</label>
-      <b-form-input id="id" v-model="id"></b-form-input>
+    <h1>Create Produto</h1>
 
-      <label for="type">Tipo:</label>
-      <select class="form-control" id="type" name="type" v-model="tipo">
-        <option
-          v-for="option in optionsTipo"
-          :key="option.value"
-          v-bind:value="option.value"
-        >{{ option.text }}</option>
-      </select>
+    <b-form-checkbox v-model="csvBool">Import From CSV</b-form-checkbox>
+    <hr />
 
-      <label for="valorBase">valor Base:</label>
-      <b-form-input id="valorBase" v-model="valorBase" type="number"></b-form-input>
+    <vue-csv-import
+      v-if="csvBool"
+      v-model="parseCsv"
+      :map-fields="{id: 'Id', tipo: 'Tipo', valorBase: 'Valor Base ', descricao: 'Descricao'}"
+    ></vue-csv-import>
 
-      <label for="descricao">Descricao:</label>
-      <b-form-input id="descricao" v-model="descricao" type="text"></b-form-input>
-
+    <div v-if="this.parseCsv != null">
+      <b-button class="btn-success" @click.prevent="createFromCsv">SUBMIT</b-button>
       <hr />
-      <nuxt-link to="/produtos">Return</nuxt-link>
-      <b-button class="btn-warning" type="reset">RESET</b-button>
-      <b-button class="btn-success" @click.prevent="create">CREATE</b-button>
-    </form>
+    </div>
+    <div v-if="!csvBool">
+      <form @submit.prevent="create">
+        <label for="id">Id:</label>
+        <b-form-input id="id" v-model="id"></b-form-input>
+
+        <label for="type">Tipo:</label>
+        <select class="form-control" id="type" name="type" v-model="tipo">
+          <option
+            v-for="option in optionsTipo"
+            :key="option.value"
+            v-bind:value="option.value"
+          >{{ option.text }}</option>
+        </select>
+
+        <label for="valorBase">valor Base:</label>
+        <b-form-input id="valorBase" v-model="valorBase" type="number"></b-form-input>
+
+        <label for="descricao">Descricao:</label>
+        <b-form-input id="descricao" v-model="descricao" type="text"></b-form-input>
+
+        <hr />
+        <nuxt-link to="/produtos">Return</nuxt-link>
+        <b-button class="btn-warning" type="reset">RESET</b-button>
+        <b-button class="btn-success" @click.prevent="create">CREATE</b-button>
+      </form>
+    </div>
   </b-container>
 </template>
 <script>
+import VueCsvImport from "vue-csv-import";
 export default {
   data() {
     return {
@@ -35,6 +52,8 @@ export default {
       tipo: null,
       valorBase: null,
       descricao: null,
+      parseCsv: null,
+      csvBool: false,
       optionsTipo: [
         { text: "Artigo Desportivo", value: "ARTIGO_DESPORTIVO" },
         { text: "Seguro", value: "SEGURO" },
@@ -63,7 +82,27 @@ export default {
           // handle error
           console.log(error);
         });
+    },
+    createFromCsv() {
+      for (let csv of this.parseCsv) {
+        this.$axios
+          .$post("/api/produtos", {
+            id: csv.id,
+            tipo: csv.tipo,
+            valorBase: csv.valorBase,
+            descricao: csv.descricao
+          })
+          .then(() => {
+            console.log("produto " + id + " criado");
+          })
+          .catch(function(error) {
+            // handle error
+            console.log(error);
+          });
+      }
+      this.$router.push("/produtos");
     }
-  }
+  },
+  components: { VueCsvImport }
 };
 </script>
