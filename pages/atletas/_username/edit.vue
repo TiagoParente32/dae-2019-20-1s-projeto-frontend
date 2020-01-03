@@ -50,13 +50,42 @@
     <b-table v-if="treinadores.length" striped over :items="treinadores" :fields="fields">
       <template v-slot:cell(actions)="row">
         <nuxt-link class="btn btn-primary btn-sm" :to="`/treinadores/${row.item.username}`">Details</nuxt-link>
-        <nuxt-link class="btn btn-primary btn-sm" :to="`/treinadores/${row.item.username}/edit`">Edit</nuxt-link>
+        <nuxt-link
+          class="btn btn-primary btn-sm"
+          :to="`/treinadores/${row.item.username}/edit`"
+        >Edit</nuxt-link>
       </template>
     </b-table>
     <p v-else>No Treinadores Found.</p>
     <hr />
+    <div>
+      <b-button v-b-toggle.collapse-1 variant="primary">Add Graduacao</b-button>
+      <b-collapse id="collapse-1" class="mt-2">
+        <h4>Add Graduacao</h4>
+        <label for="id">id:</label>
+        <b-form-input id="id" v-model="newGraduacao.id"></b-form-input>
+        <label for="nome">Nome:</label>
+        <b-form-input id="nome" v-model="newGraduacao.nome"></b-form-input>
+        <label for="descricao">Descrição:</label>
+        <b-form-input id="descricao" v-model="newGraduacao.descricao"></b-form-input>
+        <br />
+        <button
+          type="button"
+          class="btn btn-primary btn-sm"
+          @click.prevent="addGraduacao()"
+        >Create Graduacao</button>
+      </b-collapse>
+    </div>
     <h1>Graduaçoes</h1>
-    <b-table v-if="graduacoes.length" striped over :items="graduacoes" :fields="fields"></b-table>
+    <b-table v-if="graduacoes.length" striped over :items="graduacoes" :fields="graduacoesFields">
+      <template v-slot:cell(actions)="row">
+        <button
+          type="button"
+          class="btn btn-danger btn-sm"
+          @click.prevent="removeGraduacao(row.item.id)"
+        >Delete</button>
+      </template>
+    </b-table>
     <p v-else>No Graduações Found.</p>
     <hr />
     <h1>Pagamentos</h1>
@@ -76,9 +105,11 @@ export default {
       atleta: {},
       newPasswd: null,
       newPasswdC: null,
+      newGraduacao: {},
       modalidadesFields: ["id", "nome", "actions"],
       escaloesFields: ["id", "nome", "modalidadeID", "actions"],
       horariosFields: ["id", "dia", "duracao", "horaInicio"],
+      graduacoesFields: ["id", "nome", "descricao", "actions"],
       fields: ["username", "name", "email", "actions"],
       pagamentoFields: [
         "id",
@@ -117,6 +148,48 @@ export default {
         .catch(function(error) {
           this.$toast.error(error);
         });
+    },
+    getAtleta() {
+      this.$axios
+        .$get(`/api/atletas/${this.username}`)
+        .then(atleta => (this.atleta = atleta || {}));
+    },
+    addGraduacao(id) {
+      this.$axios
+        .$post(`/api/graduacoes`, this.newGraduacao)
+        .then(graduacao => {
+          this.$axios
+            .$put(
+              `/api/graduacoes/${this.newGraduacao.id}/atletas/enroll/${this.atleta.username}`
+            )
+            .then(escalao => {
+              this.$toast.success(
+                "Graduacao " +
+                  this.newGraduacao.id +
+                  " added to Atleta " +
+                  this.atleta.username +
+                  " Sucessfully"
+              );
+              this.getAtleta();
+            })
+            .catch(function(error) {
+              this.$toast.error(error);
+            });
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    },
+    removeGraduacao(id) {
+      this.$axios
+        .$put(`/api/graduacoes/${id}/atletas/unroll/${this.atleta.username}`)
+        .then(graduacao => {
+          this.$toast.success("Removed Graduacao " + id + " successfully!");
+          this.getAtleta();
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
     }
   },
   computed: {
@@ -143,9 +216,7 @@ export default {
     }
   },
   created() {
-    this.$axios
-      .$get(`/api/atletas/${this.username}`)
-      .then(atleta => (this.atleta = atleta || {}));
+    this.getAtleta();
   }
 };
 </script>

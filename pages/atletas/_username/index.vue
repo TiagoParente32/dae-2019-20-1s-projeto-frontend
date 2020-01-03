@@ -47,13 +47,16 @@
     <b-table v-if="treinadores.length" striped over :items="treinadores" :fields="fields">
       <template v-slot:cell(actions)="row">
         <nuxt-link class="btn btn-primary btn-sm" :to="`/treinadores/${row.item.username}`">Details</nuxt-link>
-        <nuxt-link class="btn btn-primary btn-sm" :to="`/treinadores/${row.item.username}/edit`">Edit</nuxt-link>
+        <nuxt-link
+          class="btn btn-primary btn-sm"
+          :to="`/treinadores/${row.item.username}/edit`"
+        >Edit</nuxt-link>
       </template>
     </b-table>
     <p v-else>No uploaded Treinadores.</p>
     <hr />
     <h1>Graduações</h1>
-    <b-table v-if="graduacoes.length" striped over :items="graduacoes" :fields="fields"></b-table>
+    <b-table v-if="graduacoes.length" striped over :items="graduacoes" :fields="graduacoesFields"></b-table>
     <p v-else>No Graduações Found.</p>
     <hr />
     <h1>Pagamentos</h1>
@@ -74,6 +77,7 @@ export default {
       modalidadesFields: ["id", "nome", "actions"],
       escaloesFields: ["id", "nome", "modalidadeID", "actions"],
       horariosFields: ["id", "dia", "duracao", "horaInicio"],
+      graduacoesFields: ["id", "nome", "descricao"],
       fields: ["username", "name", "email", "actions"],
       pagamentoFields: [
         "id",
@@ -111,9 +115,9 @@ export default {
     }
   },
   created() {
-      this.$axios
-        .$get(`/api/atletas/${this.username}`)
-        .then(atleta => (this.atleta = atleta || {}));
-    }
+    this.$axios
+      .$get(`/api/atletas/${this.username}`)
+      .then(atleta => (this.atleta = atleta || {}));
+  }
 };
 </script>

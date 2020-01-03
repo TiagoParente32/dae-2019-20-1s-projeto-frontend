@@ -61,7 +61,7 @@
           type="button"
           class="btn btn-danger"
           @click.prevent="removeHorario(row.item.id)"
-        >Delete</button>
+        >Remove</button>
       </template>
     </b-table>
     <p v-else>No uploaded horarios.</p>
@@ -191,25 +191,12 @@ export default {
           this.$toast.error(error);
         });
     },
-    removeHorario() {
+    removeHorario(id) {
       this.$axios
-        .$put(`/api/escaloes/${this.id}/horarios/unroll/${this.newHorario.id}`)
+        .$put(`/api/escaloes/${this.id}/horarios/unroll/${id}`)
         .then(horarios => {
-          this.$axios({
-            method: "delete",
-            url: `/api/horarios/${this.newHorario.id}`,
-            data: null,
-            headers: { "Content-Type": "application/json" }
-          })
-            .then(response => {
-              this.$toast.success(
-                "Deleted Horario " + this.newHorario.id + " successfully!"
-              );
-              this.getEscalao();
-            })
-            .catch(function(error) {
-              this.$toast.error(error);
-            });
+          this.$toast.success("Removed Horario " + id + " successfully!");
+          this.getEscalao();
         })
         .catch(function(error) {
           console.log(error);
