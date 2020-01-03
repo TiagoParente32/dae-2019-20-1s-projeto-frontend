@@ -14,12 +14,8 @@
       >{{ modalidade.nome }}</option>
     </select>
     <br />
-    <button
-      type="button"
-      class="btn btn-primary btn-sm"
-      @click.prevent="updateEscalao(escalao.id)"
-    >Submit</button>
-    <nuxt-link :to="`${this.id}/../presencas`" class="btn btn link btn-primary">Presencas</nuxt-link>
+    <button type="button" class="btn btn-primary" @click.prevent="updateEscalao(escalao.id)">Submit</button>
+    <nuxt-link :to="`${this.id}/../presencas`" class="btn link btn-primary">Presencas</nuxt-link>
 
     <br />
     <br />

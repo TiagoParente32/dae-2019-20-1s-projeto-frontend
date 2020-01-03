@@ -3,8 +3,18 @@
     <b-container>
       <h1>Produtos</h1>
       <download-csv class="btn btn-primary" :data="produtosCSV" name="produtos.csv">Export CSV</download-csv>
+      <nuxt-link to="/produtos/create" class="btn btn link btn-primary">Create a Produto</nuxt-link>
+
       <hr />
-      <b-table striped over :items="produtos" :fields="fields">
+      <b-table
+        id="my-table"
+        striped
+        over
+        :items="produtos"
+        :fields="fields"
+        :per-page="perPage"
+        :current-page="currentPage"
+      >
         <template v-slot:cell(actions)="row">
           <nuxt-link class="btn btn-link" :to="`/produtos/${row.item.id}`">Details</nuxt-link>
           <nuxt-link class="btn btn-primary" :to="`/produtos/${row.item.id}/edit`">Edit</nuxt-link>
@@ -15,7 +25,14 @@
           >Delete</button>
         </template>
       </b-table>
-      <nuxt-link to="/produtos/create" class="btn btn link btn-primary">Create a Produto</nuxt-link>
+      <p class="mt-3">Current Page: {{ currentPage }}</p>
+
+      <b-pagination
+        v-model="currentPage"
+        :total-rows="rows"
+        :per-page="perPage"
+        aria-controls="my-table"
+      ></b-pagination>
     </b-container>&emsp;
   </div>
 </template>
@@ -29,7 +46,9 @@ export default {
     return {
       fields: ["id", "descricao", "tipo", "valorBase", "actions"],
       produtos: [],
-      produtosCSV: []
+      produtosCSV: [],
+      perPage: 5,
+      currentPage: 1
     };
   },
   methods: {
@@ -63,6 +82,11 @@ export default {
           // handle error
           console.log(error);
         });
+    }
+  },
+  computed: {
+    rows() {
+      return this.produtos.length;
     }
   },
   created() {
