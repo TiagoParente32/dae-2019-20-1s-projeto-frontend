@@ -25,7 +25,6 @@
           >Delete</button>
         </template>
       </b-table>
-      <nuxt-link to="/produtos/create" class="btn btn-primary">Create a Produto</nuxt-link>
 
       <b-pagination
         v-model="currentPage"
