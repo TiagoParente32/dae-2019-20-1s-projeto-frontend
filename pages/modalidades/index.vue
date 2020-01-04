@@ -3,6 +3,9 @@
     <!-- easy components usage, already shipped with bootstrap css-->
     <b-container>
       <h1>Modalidades</h1>
+      <nuxt-link to="/modalidades/create" class="btn btn-primary">Create a Modalidade</nuxt-link>
+      <br />
+      <br />
       <b-table striped over :items="modalidades" :fields="fields">
         <template v-slot:cell(actions)="row">
           <nuxt-link class="btn btn-primary btn-sm" :to="`/modalidades/${row.item.id}`">Details</nuxt-link>
@@ -14,7 +17,6 @@
           >Delete</button>
         </template>
       </b-table>
-      <nuxt-link to="/modalidades/create" class="btn btn-primary">Create a Modalidade</nuxt-link>
     </b-container>&emsp;
   </div>
 </template>

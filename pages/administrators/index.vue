@@ -3,6 +3,9 @@
     <b-container>
       <h1>Administradores</h1>
       <!-- try to remove :fields=”fields” to see the magic -->
+      <nuxt-link to="/administrators/create" class="btn btn-primary">Create an Administrator</nuxt-link>
+      <br />
+      <br />
       <b-table striped over :items="administrators" :fields="fields">
         <template v-slot:cell(actions)="row">
           <nuxt-link
@@ -20,7 +23,6 @@
           >Delete</button>
         </template>
       </b-table>
-      <nuxt-link to="/administrators/create" class="btn btn-primary btn-sm">Create an Administrator</nuxt-link>
     </b-container>&emsp;
   </div>
 </template>

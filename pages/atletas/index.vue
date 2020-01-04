@@ -2,6 +2,9 @@
   <div>
     <b-container>
       <h1>Atletas</h1>
+      <nuxt-link to="/atletas/create" class="btn btn link btn-primary">Create an Atleta</nuxt-link>
+      <br />
+      <br />
       <b-table striped over :items="atletas" :fields="fields">
         <template v-slot:cell(actions)="row">
           <nuxt-link class="btn btn-primary btn-sm" :to="`/atletas/${row.item.username}`">Details</nuxt-link>
@@ -13,7 +16,6 @@
           >Delete</button>
         </template>
       </b-table>
-      <nuxt-link to="/atletas/create" class="btn btn link btn-primary">Create an Atleta</nuxt-link>
     </b-container>&emsp;
   </div>
 </template>

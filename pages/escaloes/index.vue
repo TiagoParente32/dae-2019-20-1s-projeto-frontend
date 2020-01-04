@@ -2,6 +2,9 @@
   <div>
     <b-container>
       <h1>Escalões</h1>
+      <nuxt-link to="/escaloes/create" class="btn btn-primary">Create a Escalão</nuxt-link>
+      <br />
+      <br />
       <b-table striped over :items="escaloes" :fields="fields">
         <template v-slot:cell(actions)="row">
           <nuxt-link class="btn btn-primary btn-sm" :to="`/escaloes/${row.item.id}`">Details</nuxt-link>
@@ -13,7 +16,6 @@
           >Delete</button>
         </template>
       </b-table>
-      <nuxt-link to="/escaloes/create" class="btn btn-primary btn-sm">Create a Escalão</nuxt-link>
     </b-container>&emsp;
   </div>
 </template>

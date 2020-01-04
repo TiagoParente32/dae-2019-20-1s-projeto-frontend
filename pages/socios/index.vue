@@ -2,6 +2,9 @@
   <div>
     <b-container>
       <h1>Socios</h1>
+      <nuxt-link to="/socios/create" class="btn btn-primary">Create a Sócio</nuxt-link>
+      <br />
+      <br />
       <b-table striped over :items="socios" :fields="fields">
         <template v-slot:cell(actions)="row">
           <nuxt-link class="btn btn-link" :to="`/socios/${row.item.username}`">Details</nuxt-link>
@@ -13,7 +16,6 @@
           >Delete</button>
         </template>
       </b-table>
-      <nuxt-link to="/socios/create" class="btn btn-primary">Create a Sócio</nuxt-link>
     </b-container>&emsp;
   </div>
 </template>

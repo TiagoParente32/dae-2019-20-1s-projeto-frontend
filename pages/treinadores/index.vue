@@ -2,6 +2,9 @@
   <div>
     <b-container>
       <h1>Treinadores</h1>
+      <nuxt-link to="/treinadores/create" class="btn btn-primary">Create a Treinador</nuxt-link>
+      <br />
+      <br />
       <b-table striped over :items="treinadores" :fields="fields">
         <template v-slot:cell(actions)="row">
           <nuxt-link
@@ -19,7 +22,6 @@
           >Delete</button>
         </template>
       </b-table>
-      <nuxt-link to="/treinadores/create" class="btn btn-primary">Create a Treinador</nuxt-link>
     </b-container>&emsp;
   </div>
 </template>
