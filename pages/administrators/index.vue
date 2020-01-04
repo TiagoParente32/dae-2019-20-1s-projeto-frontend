@@ -17,6 +17,7 @@
             :to="`/administrators/${row.item.username}/edit`"
           >Edit</nuxt-link>
           <button
+            v-if="$auth.user.sub != row.item.username"
             type="button"
             class="btn btn-danger btn-sm"
             @click.prevent="deleteAdmin(row.item.username)"
