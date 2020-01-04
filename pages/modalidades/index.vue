@@ -24,7 +24,11 @@ export default {
 
   data() {
     return {
-      fields: ["id", "nome", "actions"],
+      fields: [
+        { key: "id", sortable: true },
+        { key: "nome", sortable: true },
+        { key: "actions", sortable: false }
+      ],
       modalidades: []
     };
   },

@@ -28,7 +28,12 @@ export default {
   middleware: "adminOnly",
   data() {
     return {
-      fields: ["username", "name", "email", "actions"],
+      fields: [
+        { key: "username", sortable: true },
+        { key: "name", sortable: true },
+        { key: "email", sortable: true },
+        { key: "actions", sortable: false }
+      ],
       treinadores: []
     };
   },

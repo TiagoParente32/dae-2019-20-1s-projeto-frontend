@@ -16,31 +16,32 @@
         </template>
       </b-table>
       <nuxt-link to="/pagamentos/create" class="btn btn-primary">Create a Pagamento</nuxt-link>
-      <b-button v-if="this.pagamentosToPDF.length" v-on:click.prevent="generatePDF">Generate PDF With Selected Pagamentos</b-button>
+      <b-button
+        v-if="this.pagamentosToPDF.length"
+        v-on:click.prevent="generatePDF"
+      >Generate PDF With Selected Pagamentos</b-button>
     </b-container>&emsp;
   </div>
-
 </template>
 <script>
-
-  //<input type="checkbox" class="custom-control-input" id="checkbox" @click="check(row.item)" v-if="row.item.estado == 'PAGO'">
-  //<label class="custom-control-label" v-if="row.item.estado == 'PAGO'" for="checkbox">Generate PDF</label>
-  import jsPDF from 'jspdf';
-  import 'jspdf-autotable';
+//<input type="checkbox" class="custom-control-input" id="checkbox" @click="check(row.item)" v-if="row.item.estado == 'PAGO'">
+//<label class="custom-control-label" v-if="row.item.estado == 'PAGO'" for="checkbox">Generate PDF</label>
+import jsPDF from "jspdf";
+import "jspdf-autotable";
 export default {
   middleware: "adminOnly",
 
   data() {
     return {
       fields: [
-        "id",
-        "estado",
-        "username",
-        "produtoID",
-        "precoFinal",
-        "quantidade",
-        "dataLancamento",
-        "actions"
+        { key: "id", sortable: true },
+        { key: "estado", sortable: true },
+        { key: "username", sortable: true },
+        { key: "produtoID", sortable: true },
+        { key: "precoFinal", sortable: true },
+        { key: "quantidade", sortable: true },
+        { key: "dataLancamento", sortable: true },
+        { key: "actions", sortable: false }
       ],
       pagamentos: [],
       pagamentosToPDF: []
@@ -75,28 +76,38 @@ export default {
           console.log(error);
         });
     },
-    check(pagamento){
-      if(this.pagamentosToPDF.includes(pagamento)){
-        for(let i = 0; i< this.pagamentosToPDF.length; i++){
-          if (this.pagamentosToPDF[i] === pagamento){
-            this.pagamentosToPDF.splice(i,1);
+    check(pagamento) {
+      if (this.pagamentosToPDF.includes(pagamento)) {
+        for (let i = 0; i < this.pagamentosToPDF.length; i++) {
+          if (this.pagamentosToPDF[i] === pagamento) {
+            this.pagamentosToPDF.splice(i, 1);
           }
         }
-      }else{
+      } else {
         this.pagamentosToPDF.push(pagamento);
       }
     },
-    generatePDF(){
-      if(this.pagamentosToPDF.length){
+    generatePDF() {
+      if (this.pagamentosToPDF.length) {
         var doc = new jsPDF();
-        doc.text('Recibos', 10, 10);
+        doc.text("Recibos", 10, 10);
 
         doc.autoTable({
-          foot:[["Data Lançamento","Estado","ID","Preço Final","ID Produto","Quantidade","Username"]],
+          foot: [
+            [
+              "Data Lançamento",
+              "Estado",
+              "ID",
+              "Preço Final",
+              "ID Produto",
+              "Quantidade",
+              "Username"
+            ]
+          ],
           body: this.pagamentosToPDF
         });
 
-        doc.save('recibos.pdf');
+        doc.save("recibos.pdf");
       }
     }
   },

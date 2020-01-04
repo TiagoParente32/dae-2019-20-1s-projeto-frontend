@@ -45,7 +45,13 @@ export default {
 
   data() {
     return {
-      fields: ["id", "descricao", "tipo", "valorBase", "actions"],
+      fields: [
+        { key: "id", sortable: true },
+        { key: "descricao", sortable: true },
+        { key: "tipo", sortable: true },
+        { key: "valorBase", sortable: true },
+        { key: "actions", sortable: false }
+      ],
       produtos: [],
       produtosCSV: [],
       perPage: 5,
