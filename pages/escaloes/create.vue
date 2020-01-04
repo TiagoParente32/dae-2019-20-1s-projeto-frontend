@@ -22,6 +22,8 @@
 </template>
 <script>
 export default {
+  middleware: "adminOnly",
+
   data() {
     return {
       id: null,

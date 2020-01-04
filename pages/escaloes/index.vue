@@ -19,6 +19,8 @@
 </template>
 <script>
 export default {
+  middleware: "adminOnly",
+
   data() {
     return {
       fields: ["id", "nome", "modalidadeID", "actions"],
@@ -34,7 +36,9 @@ export default {
         headers: { "Content-Type": "application/json" }
       })
         .then(response => {
-          this.$toast.success("Deleted Escalão with id " + id + " successfully!");
+          this.$toast.success(
+            "Deleted Escalão with id " + id + " successfully!"
+          );
           this.getEscaloes();
         })
         .catch(function(error) {

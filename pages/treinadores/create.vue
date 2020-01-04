@@ -20,6 +20,8 @@
 </template>
 <script>
 export default {
+  middleware: "adminOnly",
+
   data() {
     return {
       username: null,

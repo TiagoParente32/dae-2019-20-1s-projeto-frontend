@@ -46,6 +46,8 @@
 </template>
 <script>
 export default {
+  middleware: "adminOnly",
+
   data() {
     return {
       pagamento: {},
@@ -96,7 +98,9 @@ export default {
           estado: this.pagamento.estado
         })
         .then(modalidades => {
-          this.$toast.success("Pagamento com ID " + id + " updated Sucessfully");
+          this.$toast.success(
+            "Pagamento com ID " + id + " updated Sucessfully"
+          );
           this.$router.push(`/pagamentos/${id}`);
         })
         .catch(function(error) {

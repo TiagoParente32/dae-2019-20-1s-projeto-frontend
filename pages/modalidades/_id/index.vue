@@ -32,7 +32,10 @@
     <b-table v-if="treinadores.length" striped over :items="treinadores" :fields="userFields">
       <template v-slot:cell(actions)="row">
         <nuxt-link class="btn btn-primary btn-sm" :to="`/treinadores/${row.item.username}`">Details</nuxt-link>
-        <nuxt-link class="btn btn-primary btn-sm" :to="`/treinadores/${row.item.username}/edit`">Edit</nuxt-link>
+        <nuxt-link
+          class="btn btn-primary btn-sm"
+          :to="`/treinadores/${row.item.username}/edit`"
+        >Edit</nuxt-link>
       </template>
     </b-table>
     <p v-else>No Treinadores Found.</p>
@@ -40,6 +43,8 @@
 </template>
 <script>
 export default {
+  middleware: "adminOnly",
+
   data() {
     return {
       modalidade: {},

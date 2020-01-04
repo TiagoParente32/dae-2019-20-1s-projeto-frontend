@@ -19,6 +19,8 @@
 </template>
 <script>
 export default {
+  middleware: "adminOnly",
+
   data() {
     return {
       fields: ["username", "name", "email", "actions"],

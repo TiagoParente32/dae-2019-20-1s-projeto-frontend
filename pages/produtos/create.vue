@@ -49,6 +49,8 @@
 <script>
 import VueCsvImport from "vue-csv-import";
 export default {
+  middleware: "adminOnly",
+
   data() {
     return {
       id: null,

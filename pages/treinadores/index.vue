@@ -4,8 +4,14 @@
       <h1>Treinadores</h1>
       <b-table striped over :items="treinadores" :fields="fields">
         <template v-slot:cell(actions)="row">
-          <nuxt-link class="btn btn-primary btn-sm" :to="`/treinadores/${row.item.username}`">Details</nuxt-link>
-          <nuxt-link class="btn btn-primary btn-sm" :to="`/treinadores/${row.item.username}/edit`">Edit</nuxt-link>
+          <nuxt-link
+            class="btn btn-primary btn-sm"
+            :to="`/treinadores/${row.item.username}`"
+          >Details</nuxt-link>
+          <nuxt-link
+            class="btn btn-primary btn-sm"
+            :to="`/treinadores/${row.item.username}/edit`"
+          >Edit</nuxt-link>
           <button
             type="button"
             class="btn btn-danger btn-sm"
@@ -19,6 +25,7 @@
 </template>
 <script>
 export default {
+  middleware: "adminOnly",
   data() {
     return {
       fields: ["username", "name", "email", "actions"],

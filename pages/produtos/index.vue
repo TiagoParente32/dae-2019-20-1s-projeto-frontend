@@ -41,6 +41,8 @@ import JsonCSV from "vue-json-csv";
 
 Vue.component("downloadCsv", JsonCSV);
 export default {
+  middleware: "adminOnly",
+
   data() {
     return {
       fields: ["id", "descricao", "tipo", "valorBase", "actions"],

@@ -7,7 +7,7 @@
     <label for="date">date:</label>
     <b-form-input id="date" v-model="newPresenca.date" type="date"></b-form-input>
     <hr />
-    <nuxt-link class="btn btn-primary" :to="`/escaloes/${id}`">Return</nuxt-link>
+    <!-- <nuxt-link class="btn btn-primary" :to="`/escaloes/${id}`">Return</nuxt-link> -->
     <b-button class="btn-warning" type="reset">RESET</b-button>
     <b-button class="btn-success" @click.prevent="create">CREATE</b-button>
     <hr />

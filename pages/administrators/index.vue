@@ -5,8 +5,14 @@
       <!-- try to remove :fields=”fields” to see the magic -->
       <b-table striped over :items="administrators" :fields="fields">
         <template v-slot:cell(actions)="row">
-          <nuxt-link class="btn btn-primary btn-sm" :to="`/administrators/${row.item.username}`">Details</nuxt-link>
-          <nuxt-link class="btn btn-primary btn-sm" :to="`/administrators/${row.item.username}/edit`">Edit</nuxt-link>
+          <nuxt-link
+            class="btn btn-primary btn-sm"
+            :to="`/administrators/${row.item.username}`"
+          >Details</nuxt-link>
+          <nuxt-link
+            class="btn btn-primary btn-sm"
+            :to="`/administrators/${row.item.username}/edit`"
+          >Edit</nuxt-link>
           <button
             type="button"
             class="btn btn-danger btn-sm"
@@ -14,15 +20,14 @@
           >Delete</button>
         </template>
       </b-table>
-      <nuxt-link
-        to="/administrators/create"
-        class="btn btn-primary btn-sm"
-      >Create an Administrator</nuxt-link>
+      <nuxt-link to="/administrators/create" class="btn btn-primary btn-sm">Create an Administrator</nuxt-link>
     </b-container>&emsp;
   </div>
 </template>
 <script>
 export default {
+  middleware: "adminOnly",
+
   data() {
     return {
       fields: ["username", "name", "email", "actions"],
