@@ -2,8 +2,8 @@
   <div>
     <b-container>
       <h1>Produtos</h1>
-      <download-csv class="btn btn-primary" :data="produtosCSV" name="produtos.csv">Export CSV</download-csv>
       <nuxt-link to="/produtos/create" class="btn btn link btn-primary">Create a Produto</nuxt-link>
+      <download-csv class="btn btn-primary" :data="produtosCSV" name="produtos.csv">Export CSV</download-csv>
 
       <hr />
       <b-table

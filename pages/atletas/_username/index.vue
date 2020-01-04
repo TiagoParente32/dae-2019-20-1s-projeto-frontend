@@ -71,6 +71,7 @@
 </template>
 <script>
 export default {
+  middleware: ["profileOnly", "atletaOnly"],
   data() {
     return {
       atleta: {},

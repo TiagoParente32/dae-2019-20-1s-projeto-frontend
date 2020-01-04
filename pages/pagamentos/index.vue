@@ -3,7 +3,19 @@
     <!-- easy components usage, already shipped with bootstrap css-->
     <b-container>
       <h1>Pagamentos</h1>
-      <b-table striped over :items="pagamentos" :fields="fields">
+      <nuxt-link to="/pagamentos/create" class="btn btn-primary">Create a Pagamento</nuxt-link>
+      <download-csv class="btn btn-primary" :data="pagamentos" name="pagamentos.csv">Export CSV</download-csv>
+
+      <hr />
+      <b-table
+        id="my-table"
+        striped
+        over
+        :items="pagamentos"
+        :fields="fields"
+        :per-page="perPage"
+        :current-page="currentPage"
+      >
         <template v-slot:cell(actions)="row">
           <nuxt-link class="btn btn-primary btn-sm" :to="`/pagamentos/${row.item.id}`">Details</nuxt-link>
           <nuxt-link class="btn btn-primary btn-sm" :to="`/pagamentos/${row.item.id}/edit`">Edit</nuxt-link>
@@ -15,11 +27,17 @@
           <b-form-checkbox @change="check(row.item)" v-if="row.item.estado === 'PAGO'">Generate PDF</b-form-checkbox>
         </template>
       </b-table>
-      <nuxt-link to="/pagamentos/create" class="btn btn-primary">Create a Pagamento</nuxt-link>
       <b-button
         v-if="this.pagamentosToPDF.length"
         v-on:click.prevent="generatePDF"
       >Generate PDF With Selected Pagamentos</b-button>
+
+      <b-pagination
+        v-model="currentPage"
+        :total-rows="rows"
+        :per-page="perPage"
+        aria-controls="my-table"
+      ></b-pagination>
     </b-container>&emsp;
   </div>
 </template>
@@ -28,6 +46,11 @@
 //<label class="custom-control-label" v-if="row.item.estado == 'PAGO'" for="checkbox">Generate PDF</label>
 import jsPDF from "jspdf";
 import "jspdf-autotable";
+
+import Vue from "vue";
+import JsonCSV from "vue-json-csv";
+
+Vue.component("downloadCsv", JsonCSV);
 export default {
   middleware: "adminOnly",
 
@@ -44,7 +67,9 @@ export default {
         { key: "actions", sortable: false }
       ],
       pagamentos: [],
-      pagamentosToPDF: []
+      pagamentosToPDF: [],
+      perPage: 5,
+      currentPage: 1
     };
   },
   methods: {
@@ -109,6 +134,11 @@ export default {
 
         doc.save("recibos.pdf");
       }
+    }
+  },
+  computed: {
+    rows() {
+      return this.pagamentos.length;
     }
   },
   created() {

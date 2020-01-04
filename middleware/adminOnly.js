@@ -1,8 +1,8 @@
-export default function ({ store, redirect }) {
+export default function (context) {
 
-  if (!store.state.auth.user.groups.includes("Administrador")) {
+  if (!context.store.state.auth.user.groups.includes("Administrador")) {
 
-    redirect("/401")
+    context.redirect("/401")
 
   }
 }

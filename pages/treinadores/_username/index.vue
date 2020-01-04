@@ -39,9 +39,17 @@
     <h1>Atletas</h1>
     <b-table v-if="atletas.length" striped over :items="atletas" :fields="fields">
       <template v-slot:cell(actions)="row">
-        <nuxt-link v-if="$auth.user.groups.includes('Administrador')" class="btn btn-link" :to="`/escaloes/${row.item.username}`">Details</nuxt-link>
-        <nuxt-link v-if="$auth.user.groups.includes('Administrador')" class="btn btn-primary" :to="`/escaloes/${row.item.username}/edit`">Edit</nuxt-link>
-        <input type="checkbox" id="checkbox" @click="check(row.item.username)">
+        <nuxt-link
+          v-if="$auth.user.groups.includes('Administrador')"
+          class="btn btn-link"
+          :to="`/escaloes/${row.item.username}`"
+        >Details</nuxt-link>
+        <nuxt-link
+          v-if="$auth.user.groups.includes('Administrador')"
+          class="btn btn-primary"
+          :to="`/escaloes/${row.item.username}/edit`"
+        >Edit</nuxt-link>
+        <input type="checkbox" id="checkbox" @click="check(row.item.username)" />
         <label for="checkbox">Send Email</label>
       </template>
     </b-table>
@@ -55,10 +63,10 @@
         </div>
         <div>
           <label for="message">Message:</label>
-          <br>
+          <br />
           <b-form-textarea rows="6" id="message" v-model="message" placeholder="add multiple lines"></b-form-textarea>
         </div>
-        <hr>
+        <hr />
         <button class="btn btn-primary btn-sm" @click.prevent="send">SEND</button>
       </form>
     </div>
@@ -66,6 +74,8 @@
 </template>
 <script>
 export default {
+  middleware: ["profileOnly", "treinadorOnly"],
+
   data() {
     return {
       treinador: {},
@@ -75,7 +85,7 @@ export default {
       horariosFields: ["id", "dia", "duracao", "horaInicio"],
       fields: ["username", "name", "email", "actions"],
       subject: null,
-      message: null,
+      message: null
     };
   },
   computed: {
@@ -93,40 +103,40 @@ export default {
     },
     escaloes() {
       return this.treinador.escaloes || [];
-    },
+    }
   },
   created() {
     this.$axios
       .$get(`/api/treinadores/${this.username}`)
       .then(treinador => (this.treinador = treinador || {}));
   },
-  methods : {
-    check(username){
-      if(this.emailsToSend.includes(username)){
-        for(let i = 0; i< this.emailsToSend.length; i++){
-          if (this.emailsToSend[i] === username){
-            this.emailsToSend.splice(i,1);
+  methods: {
+    check(username) {
+      if (this.emailsToSend.includes(username)) {
+        for (let i = 0; i < this.emailsToSend.length; i++) {
+          if (this.emailsToSend[i] === username) {
+            this.emailsToSend.splice(i, 1);
           }
         }
-      }else{
+      } else {
         this.emailsToSend.push(username);
       }
     },
-    send(){
-      console.log(this.subject + this.message)
-      for(let i = 0; i< this.emailsToSend.length; i++){
-        this.$axios.$post(`/api/atletas/${this.emailsToSend[i]}/email/send`, {
-          subject: this.subject,
-          message: this.message
-        })
+    send() {
+      console.log(this.subject + this.message);
+      for (let i = 0; i < this.emailsToSend.length; i++) {
+        this.$axios
+          .$post(`/api/atletas/${this.emailsToSend[i]}/email/send`, {
+            subject: this.subject,
+            message: this.message
+          })
           .then(msg => {
-            this.$toast.success(msg)
+            this.$toast.success(msg);
           })
           .catch(error => {
-            this.$toast.error('Error sending the e-mail')
-          })
+            this.$toast.error("Error sending the e-mail");
+          });
       }
-
     }
   }
 };

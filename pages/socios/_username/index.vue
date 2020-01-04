@@ -22,6 +22,8 @@
 </template>
 <script>
 export default {
+  middleware: ["profileOnly", "socioOnly"],
+
   data() {
     return {
       socio: {},
