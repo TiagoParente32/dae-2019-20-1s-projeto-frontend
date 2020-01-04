@@ -67,6 +67,11 @@
       </template>
     </b-table>
     <p v-else>No Pagamentos Found.</p>
+    <hr />
+    <h1>Mensagens</h1>
+    <b-table v-if="mensagens.length" striped over :items="mensagens" :fields="mensagensFields">
+    </b-table>
+    <p v-else>No Mensagens Found.</p>
   </b-container>
 </template>
 <script>
@@ -89,6 +94,10 @@ export default {
         "quantidade",
         "dataLancamento",
         "actions"
+      ],
+      mensagensFields: [
+        "subject",
+        "message"
       ]
     };
   },
@@ -113,6 +122,9 @@ export default {
     },
     graduacoes() {
       return this.atleta.graduacoes || [];
+    },
+    mensagens() {
+      return this.atleta.mensagens || [];
     }
   },
   created() {
