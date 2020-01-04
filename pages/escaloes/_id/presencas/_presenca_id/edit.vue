@@ -49,6 +49,8 @@ export default {
             this.$toast.success(error);
           });
       }
+      this.$toast.success("Presença updated!");
+      this.$router.push("/escaloes/" + this.escalao.id + "/presencas");
     },
     getPresencas() {
       this.$axios

@@ -4,7 +4,11 @@
     <p>Id: {{ escalao.id }}</p>
     <p>Nome: {{ escalao.nome }}</p>
 
-    <nuxt-link :to="`${this.id}/edit`" class="btn btn link btn-primary">Edit</nuxt-link>
+    <nuxt-link
+      v-if="$auth.user.groups.includes('Administrador')"
+      :to="`${this.id}/edit`"
+      class="btn btn link btn-primary"
+    >Edit</nuxt-link>
     <nuxt-link :to="`${this.id}/presencas`" class="btn btn link btn-primary">Presenças</nuxt-link>
 
     <h1>Horários</h1>
@@ -14,8 +18,16 @@
     <h1>Atletas</h1>
     <b-table v-if="atletas.length" striped over :items="atletas" :fields="userFields">
       <template v-slot:cell(actions)="row">
-        <nuxt-link class="btn btn-primary btn-sm" :to="`/atletas/${row.item.username}`">Details</nuxt-link>
-        <nuxt-link class="btn btn-primary btn-sm" :to="`/atletas/${row.item.username}/edit`">Edit</nuxt-link>
+        <nuxt-link
+          v-if="$auth.user.groups.includes('Administrador')"
+          class="btn btn-primary btn-sm"
+          :to="`/atletas/${row.item.username}`"
+        >Details</nuxt-link>
+        <nuxt-link
+          v-if="$auth.user.groups.includes('Administrador')"
+          class="btn btn-primary btn-sm"
+          :to="`/atletas/${row.item.username}/edit`"
+        >Edit</nuxt-link>
         <input type="checkbox" id="checkboxAtletas" @click="checkAtleta(row.item.username)" />
         <label for="checkboxAtletas">Send Email</label>
       </template>
@@ -25,8 +37,13 @@
     <h1>Treinadores</h1>
     <b-table v-if="treinadores.length" striped over :items="treinadores" :fields="userFields">
       <template v-slot:cell(actions)="row">
-        <nuxt-link class="btn btn-primary btn-sm" :to="`/treinadores/${row.item.username}`">Details</nuxt-link>
         <nuxt-link
+          v-if="$auth.user.groups.includes('Administrador')"
+          class="btn btn-primary btn-sm"
+          :to="`/treinadores/${row.item.username}`"
+        >Details</nuxt-link>
+        <nuxt-link
+          v-if="$auth.user.groups.includes('Administrador')"
           class="btn btn-primary btn-sm"
           :to="`/treinadores/${row.item.username}/edit`"
         >Edit</nuxt-link>

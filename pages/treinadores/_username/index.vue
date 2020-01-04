@@ -8,7 +8,11 @@
     <label for="email">E-Mail:</label>
     <b-form-input id="email" v-model="treinador.email" readonly></b-form-input>
     <br />
-    <nuxt-link :to="`${this.username}/edit`" class="btn btn-primary">Edit</nuxt-link>
+    <nuxt-link
+      v-if="$auth.user.groups.includes('Administrador')"
+      :to="`${this.username}/edit`"
+      class="btn btn-primary"
+    >Edit</nuxt-link>
     <hr />
     <h1>Modalidades</h1>
     <b-table v-if="modalidades.length" over :items="modalidades" :fields="modalidadesFields">
