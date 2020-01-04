@@ -25,6 +25,8 @@
 </template>
 <script>
 export default {
+  middleware: "treinadorOnly",
+
   data() {
     return {
       escalao: {},
@@ -33,7 +35,7 @@ export default {
         date: null,
         escalaoID: null
       },
-      fields: ["id", "date", "mapaPresencas", "actions"]
+      fields: ["id", "date", "actions"]
     };
   },
   methods: {

@@ -26,6 +26,7 @@
 </template>
 <script>
 export default {
+  middleware: "treinadorOnly",
   data() {
     return {
       presenca: {},

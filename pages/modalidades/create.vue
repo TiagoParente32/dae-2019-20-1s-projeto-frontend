@@ -32,10 +32,12 @@ export default {
           nome: this.nome
         })
         .then(() => {
+          this.$toast.success("Modalidade created sucessfully");
+
           this.$router.push("/modalidades");
         })
-        .catch(function(error) {
-          // handle error
+        .catch(error => {
+          this.$toast.error(error);
           console.log(error);
         });
     }

@@ -23,7 +23,11 @@
     <b-table v-if="escaloes.length" striped over :items="escaloes" :fields="escaloesFields">
       <template v-slot:cell(actions)="row">
         <nuxt-link class="btn btn-primary btn-sm" :to="`/escaloes/${row.item.id}`">Details</nuxt-link>
-        <nuxt-link class="btn btn-primary btn-sm" :to="`/escaloes/${row.item.id}/edit`">Edit</nuxt-link>
+        <nuxt-link
+          v-if="$auth.user.groups.includes('Administrador')"
+          class="btn btn-primary btn-sm"
+          :to="`/escaloes/${row.item.id}/edit`"
+        >Edit</nuxt-link>
         <nuxt-link
           :to="`/escaloes/${row.item.id}/presencas`"
           class="btn btn-primary btn-sm"
