@@ -8,7 +8,11 @@
     <label for="email">E-Mail:</label>
     <b-form-input id="email" v-model="atleta.email" readonly></b-form-input>
     <br />
-    <nuxt-link :to="`${this.username}/edit`" class="btn btn link btn-primary">Edit</nuxt-link>
+    <nuxt-link
+      v-if="$auth.user.groups.includes('Administrador')"
+      :to="`${this.username}/edit`"
+      class="btn btn link btn-primary"
+    >Edit</nuxt-link>
     <hr />
     <h1>Modalidades</h1>
     <b-table
@@ -19,8 +23,16 @@
       :fields="modalidadesFields"
     >
       <template v-slot:cell(actions)="row">
-        <nuxt-link class="btn btn-primary btn-sm" :to="`/modalidades/${row.item.id}`">Details</nuxt-link>
-        <nuxt-link class="btn btn-primary btn-sm" :to="`/modalidades/${row.item.id}/edit`">Edit</nuxt-link>
+        <nuxt-link
+          v-if="$auth.user.groups.includes('Administrador')"
+          class="btn btn-primary btn-sm"
+          :to="`/modalidades/${row.item.id}`"
+        >Details</nuxt-link>
+        <nuxt-link
+          v-if="$auth.user.groups.includes('Administrador')"
+          class="btn btn-primary btn-sm"
+          :to="`/modalidades/${row.item.id}/edit`"
+        >Edit</nuxt-link>
       </template>
     </b-table>
     <p v-else>No Modalidades Found.</p>
@@ -28,8 +40,16 @@
     <h1>Escalões</h1>
     <b-table v-if="escaloes.length" striped over :items="escaloes" :fields="escaloesFields">
       <template v-slot:cell(actions)="row">
-        <nuxt-link class="btn btn-primary btn-sm" :to="`/escaloes/${row.item.id}`">Details</nuxt-link>
-        <nuxt-link class="btn btn-primary btn-sm" :to="`/escaloes/${row.item.id}/edit`">Edit</nuxt-link>
+        <nuxt-link
+          v-if="$auth.user.groups.includes('Administrador')"
+          class="btn btn-primary btn-sm"
+          :to="`/escaloes/${row.item.id}`"
+        >Details</nuxt-link>
+        <nuxt-link
+          v-if="$auth.user.groups.includes('Administrador')"
+          class="btn btn-primary btn-sm"
+          :to="`/escaloes/${row.item.id}/edit`"
+        >Edit</nuxt-link>
       </template>
     </b-table>
     <p v-else>No Escalões Found.</p>
@@ -46,8 +66,13 @@
     <h1>Treinadores</h1>
     <b-table v-if="treinadores.length" striped over :items="treinadores" :fields="fields">
       <template v-slot:cell(actions)="row">
-        <nuxt-link class="btn btn-primary btn-sm" :to="`/treinadores/${row.item.username}`">Details</nuxt-link>
         <nuxt-link
+          v-if="$auth.user.groups.includes('Administrador')"
+          class="btn btn-primary btn-sm"
+          :to="`/treinadores/${row.item.username}`"
+        >Details</nuxt-link>
+        <nuxt-link
+          v-if="$auth.user.groups.includes('Administrador')"
           class="btn btn-primary btn-sm"
           :to="`/treinadores/${row.item.username}/edit`"
         >Edit</nuxt-link>
@@ -62,15 +87,22 @@
     <h1>Pagamentos</h1>
     <b-table v-if="pagamentos.length" striped over :items="pagamentos" :fields="pagamentoFields">
       <template v-slot:cell(actions)="row">
-        <nuxt-link class="btn btn-primary btn-sm" :to="`/pagamentos/${row.item.id}`">Details</nuxt-link>
-        <nuxt-link class="btn btn-primary btn-sm" :to="`/pagamentos/${row.item.id}/edit`">Edit</nuxt-link>
+        <nuxt-link
+          v-if="$auth.user.groups.includes('Administrador')"
+          class="btn btn-primary btn-sm"
+          :to="`/pagamentos/${row.item.id}`"
+        >Details</nuxt-link>
+        <nuxt-link
+          v-if="$auth.user.groups.includes('Administrador')"
+          class="btn btn-primary btn-sm"
+          :to="`/pagamentos/${row.item.id}/edit`"
+        >Edit</nuxt-link>
       </template>
     </b-table>
     <p v-else>No Pagamentos Found.</p>
     <hr />
     <h1>Mensagens</h1>
-    <b-table v-if="mensagens.length" striped over :items="mensagens" :fields="mensagensFields">
-    </b-table>
+    <b-table v-if="mensagens.length" striped over :items="mensagens" :fields="mensagensFields"></b-table>
     <p v-else>No Mensagens Found.</p>
   </b-container>
 </template>
@@ -95,10 +127,7 @@ export default {
         "dataLancamento",
         "actions"
       ],
-      mensagensFields: [
-        "subject",
-        "message"
-      ]
+      mensagensFields: ["subject", "message"]
     };
   },
   computed: {
